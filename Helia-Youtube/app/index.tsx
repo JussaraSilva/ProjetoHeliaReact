@@ -4,6 +4,8 @@ import {useEffect } from "react";
 import { useRouter } from "expo-router";
 
 
+
+
 export default function Index() {
 
   const router = useRouter();
@@ -14,6 +16,7 @@ export default function Index() {
       if (isLoggedIn) {
         router.navigate('/tabs/home');
       } else {
+        
         return <Login />;
       }
     }, 1000); // Simula um carregamento de 2 segundos
@@ -21,5 +24,8 @@ export default function Index() {
     return () => clearTimeout(timeout);
   }, [router]);
 
+    
     return <Login />;
+    
+
 }

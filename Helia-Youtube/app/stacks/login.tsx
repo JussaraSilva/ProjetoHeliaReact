@@ -2,7 +2,7 @@
 import { useRouter } from 'expo-router';
 import {
   AppleLogoIcon,
-  ArrowLeftIcon,
+  // ArrowLeftIcon,
   ChatsTeardropIcon,
   EnvelopeSimpleIcon,
   FacebookLogoIcon,
@@ -37,24 +37,27 @@ const responsiveSize: IResponsiveSize = (size: number): number => {
 
 export default function Login() {
 
-    {/* Função atribuida a setinha de voltar */}
+    {/* Função atribuida ao botão de login */}
     const router = useRouter();
 
     function handleHome() {
         router.navigate('/tabs/home');
     }
 
+
+
+
   return (
     
     <View style={styles.container}>
       {/* Header: Botão de Voltar fora da área de scroll */}
-      <TouchableOpacity style={styles.header}>
+      {/* <TouchableOpacity style={styles.header}>
         <ArrowLeftIcon
           size={responsiveSize(28)}
           color='#f4f4f4'
           weight='regular'
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <ScrollView
         contentContainerStyle={styles.scrollContent} 

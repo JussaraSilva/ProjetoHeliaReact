@@ -12,7 +12,14 @@ import {
 } from "phosphor-react-native";
 import { useRouter } from "expo-router";
 
+import { useContext } from "react";
+import { ThemeContext } from "../src/context/themeContext";
+
+import { theme } from "../src/global/themes";
+
 export default function Home() {
+  const { currentTheme } = useContext(ThemeContext) as { currentTheme: keyof typeof theme };
+  const styles = createStyles(currentTheme);
 
   const router = useRouter();
   
@@ -38,12 +45,12 @@ export default function Home() {
         <View style={styles.headerRight}>
             <BellRingingIcon 
               size={32} 
-              color="#f4f4f4" 
+              color={theme[currentTheme].iconColor} 
               weight="duotone" 
             />
             <BookmarkIcon 
               size={32} 
-              color="#f4f4f4" 
+              color={theme[currentTheme].iconColor}
               weight="duotone" 
             />
         </View>
@@ -94,7 +101,7 @@ export default function Home() {
               <View style= {styles.cardInfoBottom}>
                 <View style={styles.cardInfoRate}>
                   <StarIcon 
-                    color="#FFFF00"
+                    color={theme[currentTheme].starColor}
                     size={16} 
                     weight="fill"
                   /> 
@@ -132,7 +139,7 @@ export default function Home() {
               <View style= {styles.cardInfoBottom}>
                 <View style={styles.cardInfoRate}>
                   <StarIcon 
-                    color="#FFFF00"
+                    color={theme[currentTheme].starColor}
                     size={16} 
                     weight="fill"
                   /> 
@@ -170,7 +177,7 @@ export default function Home() {
               <View style= {styles.cardInfoBottom}>
                 <View style={styles.cardInfoRate}>
                   <StarIcon 
-                    color="#FFFF00"
+                    color={theme[currentTheme].starColor}
                     size={16} 
                     weight="fill"
                   /> 
@@ -208,7 +215,7 @@ export default function Home() {
               <View style= {styles.cardInfoBottom}>
                 <View style={styles.cardInfoRate}>
                   <StarIcon 
-                    color="#FFFF00"
+                    color={theme[currentTheme].starColor}
                     size={16} 
                     weight="fill"
                   /> 
@@ -246,7 +253,7 @@ export default function Home() {
               <View style= {styles.cardInfoBottom}>
                 <View style={styles.cardInfoRate}>
                   <StarIcon 
-                    color="#FFFF00"
+                    color={theme[currentTheme].starColor}
                     size={16} 
                     weight="fill"
                   /> 
@@ -271,159 +278,155 @@ export default function Home() {
           </View>
 
           
-          
-          
-
         </View>
+        
       </ScrollView>
     </View>
   );
 }
-
-export const styles = StyleSheet.create({
+export const createStyles = (currentTheme: "dark" | "light") =>
+  StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#181a20",
-    paddingHorizontal: 28,
-  },
+      flex: 1,
+      backgroundColor: theme[currentTheme].background,
+      paddingHorizontal: 28,
+    },
 
-  header: {
-    marginTop: 80,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  headerLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
-  headerRight: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
-  headerLeftText: {
-    color: "#f4f4f4",
-    fontSize: 24,
-    fontWeight: "800",
-  },
+    header: {
+      marginTop: 80,
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
 
-  userName: {
-    paddingTop: 30,
-    paddingBottom: 30,
-    color: "#f4f4f4",
-    fontSize: 25,
-    fontWeight: "800",
-  },
+    headerLeft: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+    },
 
-  inputContainer: {
-    width: "100%",
-    height: 56,
-    backgroundColor: "#1f222a",
-    borderRadius: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    gap: 10,
-    marginBottom: 20,
-  },
+    headerRight: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+    },
 
-  input: {
-    flex: 1,
-    color: "#f4f4f4",
-  },
+    headerLeftText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 24,
+      fontWeight: "800",
+    },
 
-  content: {
-    marginRight: 28,
-    width: "100%",
-    gap: 20,
-  },
+    userName: {
+      paddingTop: 30,
+      paddingBottom: 30,
+      color: theme[currentTheme].textPrimary,
+      fontSize: 25,
+      fontWeight: "800",
+    },
 
-  scrollView: {
-    flex: 1,
-  },
+    inputContainer: {
+      width: "100%",
+      height: 56,
+      backgroundColor: theme[currentTheme].input,
+      borderRadius: 12,
+      flexDirection: "row",
+      alignItems: "center",
+      paddingHorizontal: 20,
+      gap: 10,
+      marginBottom: 20,
+    },
 
-  scrollContent: {
-    paddingBottom: 10,
-  },
+    input: {
+      flex: 1,
+      color: theme[currentTheme].textPrimary,
+    },
 
-  
+    content: {
+      marginRight: 28,
+      width: "100%",
+      gap: 20,
+    },
 
-  card: {
-    width: "100%",
-    height: 120,
-    backgroundColor: "#1f222a",
-    borderRadius: 12,
-    alignItems: "center",
-    flexDirection: "row",
-    paddingHorizontal: 10,
-    justifyContent: "space-between",
-  },
+    scrollView: {
+      flex: 1,
+    },
 
-  cardButton: {
-    alignItems: "flex-start",
-    flexDirection: "row",
-    gap: 10,
-  },
+    scrollContent: {
+      paddingBottom: 10,
+    },
 
-  cardImage: {
-    width: 90,
-    height: 90,
-    borderRadius: 12,
-  },
+    card: {
+      width: "100%",
+      height: 120,
+      backgroundColor: theme[currentTheme].card,
+      borderRadius: 12,
+      alignItems: "center",
+      flexDirection: "row",
+      paddingHorizontal: 10,
+      justifyContent: "space-between",
+    },
 
-  cardInfo: {
-    height: "100%",
-    gap: 10,
-  },
+    cardButton: {
+      alignItems: "flex-start",
+      flexDirection: "row",
+      gap: 10,
+    },
 
-  cardInfoTop: {
-    justifyContent: "center",
-    gap: 4,
-  },
+    cardImage: {
+      width: 90,
+      height: 90,
+      borderRadius: 12,
+    },
 
-  cardInfoBottom: {
-    justifyContent: "center",
-  },
+    cardInfo: {
+      height: "100%",
+      gap: 10,
+    },
 
-  cardInfoRate: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
+    cardInfoTop: {
+      justifyContent: "center",
+      gap: 4,
+    },
 
-  cardInfoRateText: {
-    color: "#f4f4f4",
-    fontSize: 14,
-    fontWeight: "500",
-  },
+    cardInfoBottom: {
+      justifyContent: "center",
+    },
 
-  cardInfoTitle: {
-    color: "#f4f4f4",
-    fontSize: 16,
-    fontWeight: "400",
-    
-  },
+    cardInfoRate: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+    },
 
-  cardInfoSubTitle: {
-    color: "#757575",
-    fontSize: 14,
-    fontWeight: "300",
-  },
+    cardInfoRateText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 14,
+      fontWeight: "500",
+    },
 
-  cardInfoBuy: {
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 30,
-    
-  },
+    cardInfoTitle: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: "400",
+    },
 
-  cardInfoBuyText: {
-    color: "#1ab65c",
-    fontSize: 18,
-    fontWeight: "900",
-  },
+    cardInfoSubTitle: {
+      color: theme[currentTheme].textSecondary,
+      fontSize: 14,
+      fontWeight: "300",
+    },
 
+    cardInfoBuy: {
+      height: "100%",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 30,
+    },
 
-});
+    cardInfoBuyText: {
+      color: theme[currentTheme].accent,
+      fontSize: 18,
+      fontWeight: "900",
+    },
+  });
+

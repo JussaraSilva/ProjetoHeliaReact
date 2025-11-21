@@ -1,9 +1,36 @@
+import { useRouter } from "expo-router";
 import { ArrowLeftIcon, BathtubIcon, BedIcon, BookmarkIcon, BuildingApartmentIcon, DotsThreeIcon, MapPinIcon, VectorThreeIcon } from "phosphor-react-native";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useContext } from "react";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import { ThemeContext } from "../src/context/themeContext";
+import { theme } from "../src/global/themes";
 
 
+
+const { width} = Dimensions.get('window');
+
+interface IResponsiveSize {
+    (size: number): number;
+}
+
+const guidelineBaseWidth = 375; // Largura de referência (ex: iPhone 8)
+const responsiveSize: IResponsiveSize = (size: number): number => {
+    return (size * width) / guidelineBaseWidth;
+};
 
 export default function Details() {
+
+    const { currentTheme } = useContext(ThemeContext);
+      const styles = createStyles(currentTheme);
+
+  
+
+      const router = useRouter();
+  
+      function arrowBackPage() {
+          router.navigate('/tabs/home');
+      }
 
 
     return (
@@ -13,7 +40,12 @@ export default function Details() {
                   source={require("../src/assets/hotel.png")}/>
 
                 <View style = {styles.headerInfoButtons}>
-                    <ArrowLeftIcon size={32} color='#f4f4f4' weight='regular'/>
+                    <TouchableOpacity onPress={arrowBackPage}>
+                        <ArrowLeftIcon 
+                          size={32} 
+                          color='#f4f4f4' 
+                          weight='regular'/>
+                    </TouchableOpacity>
                     <View style = {styles.headerInfoButtonsRight}>
                       <BookmarkIcon size={32} color='#f4f4f4' weight='regular'/>
 
@@ -97,7 +129,17 @@ export default function Details() {
             </View>
 
             <View style = {styles.footer}>
+                  <View style = {styles.footerContainerText}>
+                    <Text style = {styles.footerContainerTextMoney}>$ 450</Text>
+                    <Text style = {styles.footerContainerTextMonth}>/mês</Text>
+                  </View>
 
+                  <View style = {styles.footerContainerButton}>
+                    <TouchableOpacity 
+                            style={styles.button}>
+                      <Text style={styles.buttonText}>Alugar</Text>
+                    </TouchableOpacity>
+                  </View>
             </View>
       </View>
         
@@ -105,10 +147,11 @@ export default function Details() {
 }
 
 
-export const styles = StyleSheet.create({
+export const createStyles = (currentTheme: "dark" | "light") =>
+  StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#181a20',
+        backgroundColor: theme[currentTheme].background,
         
     },
 
@@ -140,7 +183,7 @@ export const styles = StyleSheet.create({
     },
 
     imovelNameText: {
-        color: '#f4f4f4',
+        color: theme[currentTheme].textPrimary,
         fontSize: 36, 
         fontWeight: 'bold',
         paddingHorizontal: 30,
@@ -156,7 +199,7 @@ export const styles = StyleSheet.create({
     },
 
     infoLocalizacaoEnderecoText: {
-        color: '#f4f4f4',
+        color: theme[currentTheme].textPrimary,
         fontSize: 16,
         fontWeight: '500',
     },
@@ -164,7 +207,7 @@ export const styles = StyleSheet.create({
     separator: {
         width: '90%',
         height: 2,
-        backgroundColor: '#757575',
+        backgroundColor: theme[currentTheme].borderBottomColor,
         alignSelf: 'center',
         marginHorizontal: 30,
         marginTop: 20,
@@ -179,13 +222,13 @@ export const styles = StyleSheet.create({
 
     containerGaleriaFotosTexto: {
         fontSize: 18,
-        color: "#f4f4f4",
+        color: theme[currentTheme].textPrimary,
         fontWeight: "bold"
     },
 
     containerGaleriaVerTodosTexto: {
         fontSize: 18,
-        color: "#1Ab65c",
+        color: theme[currentTheme].accent,
         fontWeight: "bold"
     },
 
@@ -215,7 +258,7 @@ export const styles = StyleSheet.create({
     },
 
     containerDetailsTitle: {
-        color:"#f1f1f1",
+        color:theme[currentTheme].textPrimary,
         fontSize:18,
         fontWeight:"bold",
         marginTop:15,
@@ -239,15 +282,72 @@ export const styles = StyleSheet.create({
 
     detailsIconsText: {
         fontSize:14,
-        color:"#f1f1f1",
+        color:theme[currentTheme].textPrimary,
         fontWeight:"bold",
     },
 
     footer: {
+      flexDirection:"row",
+      justifyContent:"space-between",     
       borderWidth:1,
-      height:80,
-      borderRightColor:"#757575",
-    }
+      height:90,
+      marginTop:20,
+      flex:1,
+      borderRightColor:theme[currentTheme].borderBottomColor,
+      borderLeftColor:theme[currentTheme].borderBottomColor,
+      borderTopColor:theme[currentTheme].borderBottomColor,
+      borderTopLeftRadius: 26,
+      borderTopRightRadius: 26,
+      paddingHorizontal:10,
+    },
+
+    footerContainerText: {
+      flexDirection: "row",
+      alignItems:"center",
+      height:"100%",
+      paddingHorizontal:20,
+      gap:10,
+    },
+
+    footerContainerTextMoney:{
+      color:theme[currentTheme].accent,
+      fontSize:32,
+      fontWeight:"bold",
+
+    },
+
+    footerContainerTextMonth: {
+      color:theme[currentTheme].textPrimary,
+      fontSize:12,
+      fontWeight:"bold",
+    },
+
+    footerContainerButton: {
+      flex:1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      
+    },
+    button: {
+      backgroundColor: theme[currentTheme].accent,
+      width:responsiveSize(210),
+      height: responsiveSize(56),
+      borderRadius: responsiveSize(36),
+      alignItems: 'center',
+      justifyContent: 'center',
+      maxWidth: responsiveSize(350),
+      
+
+    },
+    buttonText: {
+        color:theme[currentTheme].textPrimary,
+        fontSize:26,
+        fontWeight:"800",
+    },
+
+    
+
+
 
 
 
