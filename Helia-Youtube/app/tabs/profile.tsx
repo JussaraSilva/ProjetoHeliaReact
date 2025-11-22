@@ -1,4 +1,4 @@
-import { BellIcon, ChatsTeardropIcon, CreditCardIcon, DotsThreeCircleIcon, InfoIcon, PaintBucketIcon, PencilSimpleIcon, ShieldCheckIcon, } from "phosphor-react-native";
+import { BellIcon, ChatsTeardropIcon, CreditCardIcon, DotsThreeCircleIcon, InfoIcon, PaintBucketIcon, PencilSimpleIcon, ShieldCheckIcon, SignOutIcon, } from "phosphor-react-native";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ProfileOptions from "../components/profileOptions";
 import { theme } from "../src/global/themes";
@@ -101,6 +101,18 @@ export default function Profile() {
                         label="Help" 
                     
                     />
+                        <TouchableOpacity style={styles.signOutButton} 
+                            onPress={() => {}}
+                        >
+                            <SignOutIcon
+                                size={20}
+                                color="red"
+                            />
+                            <Text style={styles.optionLabelSignOut}>
+                                Sign Out
+                            </Text>
+                        </TouchableOpacity>
+
                 </ScrollView>
             </View>
         </View>
@@ -188,8 +200,23 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     optionsContainer: {
         marginTop:20,
         paddingHorizontal:20,
-        gap: 20,
+        gap: 10,
     },
+
+    signOutButton: {
+        paddingTop:20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap:10,
+    },
+
+    optionLabelSignOut: {
+        color: "red",
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+
+
 
 
 

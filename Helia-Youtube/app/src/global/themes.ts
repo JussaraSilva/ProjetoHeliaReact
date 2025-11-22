@@ -15,15 +15,15 @@ export const theme = {
   },
 
   light: {
-    background: "#d9d9d9",
+    background: "#f2f2f2",
     textPrimary: "#121212",
     textSecondary: "#555555",
     colorGray:"#808080",
     accent: "#1ab65c",
     trackOff: "#d4d4d4",
     trackOn: "#0d0d0d",
-    card: "#f2f2f2",
-    input: "#cccccc",
+    card: "#fff",
+    input: "#e6e6e6",
     iconColor:"#262626",
     starColor:"#ffcc00",
     borderBottomColor:"#cccccc",
