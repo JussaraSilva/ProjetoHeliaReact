@@ -12,6 +12,13 @@ export const theme = {
     iconColor:"#d9d9d9",
     starColor:"#FFFF00",
     borderBottomColor:"#333",
+    colorAtiva:"#12adf5",
+    colorError:"#ff0000",
+    colorComplet:"#1ab65c",
+    colorAtivaBack:"#b3daec",
+    colorErrorBack:"#fdb6b6",
+    colorCompletBack:"#c9fcdb",
+
   },
 
   light: {
@@ -27,6 +34,12 @@ export const theme = {
     iconColor:"#262626",
     starColor:"#ffcc00",
     borderBottomColor:"#cccccc",
+    colorAtiva:"#12adf5",
+    colorError:"#ff0000",
+    colorComplet:"#1ab65c",
+    colorAtivaBack:"#b3daec",
+    colorErrorBack:"#fdb6b6",
+    colorCompletBack:"#c9fcdb",
   },
 };
 

@@ -1,6 +1,6 @@
 import { BellIcon, ChatsTeardropIcon, CreditCardIcon, DotsThreeCircleIcon, InfoIcon, PaintBucketIcon, PencilSimpleIcon, ShieldCheckIcon, SignOutIcon, } from "phosphor-react-native";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import ProfileOptions from "../components/profileOptions";
+import ProfileOptions from "../src/components/profileOptions";
 import { theme } from "../src/global/themes";
 import { useContext } from "react";
 import { ThemeContext } from "../src/context/themeContext";
@@ -20,7 +20,7 @@ export default function Profile() {
             <View style={styles.headerProfile}>
                 <View style={styles.header}>
                     <View style={styles.headerLogo}>
-                        <ChatsTeardropIcon size={32} color='#1AB65C' weight='duotone'/>
+                        <ChatsTeardropIcon size={32} color={theme[currentTheme].accent} weight='duotone'/>
                         <Text style={styles.headerText}>Perfil</Text>
                     </View>
                     
@@ -46,7 +46,9 @@ export default function Profile() {
                         7K7mP@example.com
                     </Text>
                 </View>
-                <ScrollView contentContainerStyle={styles.optionsContainer}>
+                <ScrollView contentContainerStyle={styles.optionsContainer}
+                showsVerticalScrollIndicator={false}
+                >
 
                     <ProfileOptions icon={
                         <PencilSimpleIcon 

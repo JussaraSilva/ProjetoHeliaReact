@@ -1,12 +1,21 @@
 import {Tabs } from "expo-router";
+
 import { HouseIcon, MagnifyingGlassIcon, NotebookIcon, UserCircleIcon} from "phosphor-react-native";
+import { theme } from "../src/global/themes";
+import { useContext } from "react";
+import { ThemeContext } from "../src/context/themeContext";
+
+
 
 export default function TabsLayout() {
+
+    const { currentTheme } = useContext(ThemeContext);
+
   return <Tabs screenOptions={
     {headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#181a20',
-          borderTopColor: '#181a20',
+          backgroundColor: theme[currentTheme].background,
+          borderTopColor: theme[currentTheme].borderBottomColor,
           height: 70,
           paddingBottom: 10,
           paddingTop: 10,
@@ -14,7 +23,6 @@ export default function TabsLayout() {
         tabBarLabelPosition: 'below-icon',
         tabBarShowLabel: true,
         tabBarActiveTintColor: '#1ab65c',
-        tabBarActiveBackgroundColor: '#191c24',
         tabBarInactiveTintColor: '#757575',
     }
   }>

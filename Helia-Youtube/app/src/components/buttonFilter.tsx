@@ -1,8 +1,8 @@
 
-import { useRef, useContext, useEffect } from "react";
-import { Animated, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { ThemeContext } from "../src/context/themeContext";
-import { theme } from "../src/global/themes";
+import {useContext} from "react";
+import {StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ThemeContext } from "../context/themeContext";
+import { theme } from "../global/themes";
 
 type Props = {
     label?: string;
@@ -63,7 +63,7 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     borderRadius: 20,
     justifyContent:"center",
     backgroundColor: '#fff',
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     height: "100%",
     flexDirection:"row",
     borderWidth: 2,

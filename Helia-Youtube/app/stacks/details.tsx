@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { ArrowLeftIcon, BathtubIcon, BedIcon, BookmarkIcon, BuildingApartmentIcon, DotsThreeIcon, MapPinIcon, VectorThreeIcon } from "phosphor-react-native";
 import { useContext } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -24,7 +24,16 @@ export default function Details() {
     const { currentTheme } = useContext(ThemeContext);
       const styles = createStyles(currentTheme);
 
-  
+      const params = useLocalSearchParams<{
+          id: string;
+          nameHouse: string;
+          adress: string;
+          price: string;
+          avaliation: string;
+          image: string;
+      }>();
+
+      
 
       const router = useRouter();
   
@@ -34,10 +43,11 @@ export default function Details() {
 
 
     return (
+      
       <View style = {styles.container}>
           <View style = {styles.header}>
                 <Image style = {styles.headerImage}
-                  source={require("../src/assets/hotel.png")}/>
+                  source={{ uri: params.image }}/>
 
                 <View style = {styles.headerInfoButtons}>
                     <TouchableOpacity onPress={arrowBackPage}>
@@ -54,13 +64,14 @@ export default function Details() {
               </View>
           </View>
 
+          <ScrollView>
             <Text style = {styles.imovelNameText}>
-              Hotel Nova Vista
+              {params.nameHouse}
             </Text>
             <View style = {styles.infoLocalizacao}>
                 <MapPinIcon size={32} color='#1ab65c' weight='fill'/>
                 <Text style = {styles.infoLocalizacaoEnderecoText}>
-                  Rua das Flores, 123 - São Paulo, SP
+                  {params.adress}
                 </Text>
             </View>
 
@@ -75,8 +86,7 @@ export default function Details() {
               <ScrollView 
                 horizontal 
                 style={styles.contentFotosContainer}
-                contentContainerStyle={styles.scrollViewContent}
-                showsHorizontalScrollIndicator={false} // Opcional: esconde a barra de scroll
+                showsHorizontalScrollIndicator={false}
               >
               <Image 
                 style = {styles.contentPhotoImg}
@@ -103,7 +113,7 @@ export default function Details() {
                 source = {require("../src/assets/hotel.png")}
               />
               
-            </ScrollView>
+              </ScrollView>
 
             <View style = {styles.containerDetails}>
               <Text style = {styles.containerDetailsTitle}>Details</Text>
@@ -130,7 +140,7 @@ export default function Details() {
 
             <View style = {styles.footer}>
                   <View style = {styles.footerContainerText}>
-                    <Text style = {styles.footerContainerTextMoney}>$ 450</Text>
+                    <Text style = {styles.footerContainerTextMoney}>{params.price}</Text>
                     <Text style = {styles.footerContainerTextMonth}>/mês</Text>
                   </View>
 
@@ -141,6 +151,9 @@ export default function Details() {
                     </TouchableOpacity>
                   </View>
             </View>
+
+          </ScrollView>
+            
       </View>
         
     );
@@ -232,17 +245,12 @@ export const createStyles = (currentTheme: "dark" | "light") =>
         fontWeight: "bold"
     },
 
-    scrollViewContent: {
-        maxHeight:120,
-        alignItems: 'flex-start', 
-    },
+    
 
     contentFotosContainer: {       
         paddingHorizontal: 30,
         paddingTop: 10,
-        maxHeight:130,
-
-
+        flex:1,
     },
 
     contentPhotoImg: {
@@ -290,9 +298,8 @@ export const createStyles = (currentTheme: "dark" | "light") =>
       flexDirection:"row",
       justifyContent:"space-between",     
       borderWidth:1,
-      height:90,
+      padding:10,
       marginTop:20,
-      flex:1,
       borderRightColor:theme[currentTheme].borderBottomColor,
       borderLeftColor:theme[currentTheme].borderBottomColor,
       borderTopColor:theme[currentTheme].borderBottomColor,
@@ -304,14 +311,13 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     footerContainerText: {
       flexDirection: "row",
       alignItems:"center",
-      height:"100%",
-      paddingHorizontal:20,
-      gap:10,
+      marginLeft:5,
+      
     },
 
     footerContainerTextMoney:{
       color:theme[currentTheme].accent,
-      fontSize:32,
+      fontSize:30,
       fontWeight:"bold",
 
     },
@@ -323,7 +329,7 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     },
 
     footerContainerButton: {
-      flex:1,
+      
       alignItems: 'center',
       justifyContent: 'center',
       

@@ -1,6 +1,6 @@
-import { Text, View, StyleSheet, TextInput, Pressable, Image, ScrollView} from "react-native";
+import { Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
 
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from 'expo-status-bar';
 
 import {
   BellRingingIcon,
@@ -9,284 +9,217 @@ import {
   MagnifyingGlassIcon,
   SlidersHorizontalIcon,
   StarIcon,
-} from "phosphor-react-native";
-import { useRouter } from "expo-router";
+} from 'phosphor-react-native';
 
-import { useContext } from "react";
-import { ThemeContext } from "../src/context/themeContext";
+import { useContext } from 'react';
+import { ThemeContext } from '../src/context/themeContext';
 
-import { theme } from "../src/global/themes";
+import { theme } from '../src/global/themes';
+import CardsBuildingPrice from '../src/components/cardsBuildingPrice';
 
 export default function Home() {
-  const { currentTheme } = useContext(ThemeContext) as { currentTheme: keyof typeof theme };
+  const { currentTheme } = useContext(ThemeContext) as {
+    currentTheme: keyof typeof theme;
+  };
   const styles = createStyles(currentTheme);
 
-  const router = useRouter();
-  
-      function handleDetails() {
-          router.navigate('/stacks/details');
-      }
-  
-  
   return (
     <View style={styles.container}>
       <StatusBar />
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <ChatsTeardropIcon 
-            size={30} 
-            color="#1ab65c" 
-            weight="duotone" 
-          />
-          <Text style={styles.headerLeftText}>
-            Helia
-          </Text>
+          <ChatsTeardropIcon size={30} color='#1ab65c' weight='duotone' />
+          <Text style={styles.headerLeftText}>Helia</Text>
         </View>
         <View style={styles.headerRight}>
-            <BellRingingIcon 
-              size={32} 
-              color={theme[currentTheme].iconColor} 
-              weight="duotone" 
-            />
-            <BookmarkIcon 
-              size={32} 
-              color={theme[currentTheme].iconColor}
-              weight="duotone" 
-            />
+          <BellRingingIcon
+            size={32}
+            color={theme[currentTheme].iconColor}
+            weight='duotone'
+          />
+          <BookmarkIcon
+            size={32}
+            color={theme[currentTheme].iconColor}
+            weight='duotone'
+          />
         </View>
       </View>
 
       <Text style={styles.userName}>Olá, Rodrigo!</Text>
 
       <View style={styles.inputContainer}>
-          <MagnifyingGlassIcon 
-            size={30} 
-            color="#757575" 
-            weight="duotone" 
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Busque uma casa aqui"
-            placeholderTextColor={"#757575"}
-          />
-          <SlidersHorizontalIcon 
-            size={30} 
-            color="#1ab65c" 
-            weight="duotone" 
-          />
+        <MagnifyingGlassIcon size={30} color='#757575' weight='duotone' />
+        <TextInput
+          style={styles.input}
+          placeholder='Busque uma casa aqui'
+          placeholderTextColor={'#757575'}
+        />
+        <SlidersHorizontalIcon size={30} color='#1ab65c' weight='duotone' />
       </View>
 
-      <ScrollView 
+      <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={true}
-        indicatorStyle="black"
-        bounces={true}
-        overScrollMode="always"
+        showsVerticalScrollIndicator={false}
       >
         <View style={styles.content}>
-          {/* As views dos cards de hotéis foram duplicadas apenas para exemplificar a rolagem da tela. */}
-          
-          <View style={styles.card}>
-            <Pressable onPress={handleDetails}
-              style={styles.cardButton}>
-              <Image style={styles.cardImage}
-              source={require("../src/assets/hotel.png")}
+          <CardsBuildingPrice
+            id='001'
+            nameHouse='President Hotel'
+            adress='Paris, France'
+            image={{
+              uri: 'https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000',
+            }}
+            iconAvaliation={
+              <StarIcon
+                size={18}
+                color={theme[currentTheme].starColor}
+                weight='fill'
               />
-            <View style={styles.cardInfo}>
-              <View style= {styles.cardInfoTop}>
-                <Text style={styles.cardInfoTitle}>Hotel Nova Vista</Text>
-                <Text style={styles.cardInfoSubTitle}>Posse, Goiás</Text>
-              </View>
-              <View style= {styles.cardInfoBottom}>
-                <View style={styles.cardInfoRate}>
-                  <StarIcon 
-                    color={theme[currentTheme].starColor}
-                    size={16} 
-                    weight="fill"
-                  /> 
-                  <Text style={styles.cardInfoRateText}>
-                    4.8 (200 avaliações)
-                  </Text>
-                  
-                </View>
-              </View>
-              
-            </View>
-          </Pressable>
+            }
+            avaliation='4,8 (4.2k avaliações)'
+            iconFavorite={
+              <BookmarkIcon
+                size={18}
+                color={theme[currentTheme].iconColor}
+                weight='duotone'
+              />
+            }
+            price='R$ 200,00'
+          />
 
-          <View style={styles.cardInfoBuy}>
-            <Text style={styles.cardInfoBuyText}>R$ 450,00</Text>
-              <BookmarkIcon 
-                size={32} 
-                color="#f4f4f4" 
-                weight="fill" 
+          <CardsBuildingPrice
+            id='002'
+            nameHouse='Forest Cabin'
+            adress='British Columbia, Canada'
+            image={{
+              uri: 'https://images.pexels.com/photos/2725675/pexels-photo-2725675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            }}
+            iconAvaliation={
+              <StarIcon
+                size={18}
+                color={theme[currentTheme].starColor}
+                weight='fill'
               />
-          </View>
-          </View>
+            }
+            avaliation='4,8 (956 avaliações)'
+            iconFavorite={
+              <BookmarkIcon
+                size={18}
+                color={theme[currentTheme].iconColor}
+                weight='duotone'
+              />
+            }
+            price='R$ 190,00'
+          />
 
-          <View style={styles.card}>
-            <Pressable onPress={handleDetails}
-              style={styles.cardButton}>
-              <Image style={styles.cardImage}
-              source={require("../src/assets/hotel.png")}
+          <CardsBuildingPrice
+            id='003'
+            nameHouse='Tokyo Skyline'
+            adress='Tokyo, Japan'
+            image={{
+              uri: 'https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            }}
+            iconAvaliation={
+              <StarIcon
+                size={18}
+                color={theme[currentTheme].starColor}
+                weight='fill'
               />
-            <View style={styles.cardInfo}>
-              <View style= {styles.cardInfoTop}>
-                <Text style={styles.cardInfoTitle}>Hotel Nova Vista</Text>
-                <Text style={styles.cardInfoSubTitle}>Posse, Goiás</Text>
-              </View>
-              <View style= {styles.cardInfoBottom}>
-                <View style={styles.cardInfoRate}>
-                  <StarIcon 
-                    color={theme[currentTheme].starColor}
-                    size={16} 
-                    weight="fill"
-                  /> 
-                  <Text style={styles.cardInfoRateText}>
-                    4.8 (200 avaliações)
-                  </Text>
-                  
-                </View>
-              </View>
-              
-            </View>
-          </Pressable>
+            }
+            avaliation='4,9 (2.7k avaliações)'
+            iconFavorite={
+              <BookmarkIcon
+                size={18}
+                color={theme[currentTheme].iconColor}
+                weight='duotone'
+              />
+            }
+            price='R$ 320,00'
+          />
 
-          <View style={styles.cardInfoBuy}>
-            <Text style={styles.cardInfoBuyText}>R$ 450,00</Text>
-              <BookmarkIcon 
-                size={32} 
-                color="#f4f4f4" 
-                weight="fill" 
+          <CardsBuildingPrice
+            id='004'
+            nameHouse='Santorini View'
+            adress='Santorini, Greece'
+            image={{
+              uri: 'https://images.pexels.com/photos/161815/santorini-oia-greece-water-161815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            }}
+            iconAvaliation={
+              <StarIcon
+                size={18}
+                color={theme[currentTheme].starColor}
+                weight='fill'
               />
-          </View>
-          </View>
+            }
+            avaliation='4,7 (3.8k avaliações)'
+            iconFavorite={
+              <BookmarkIcon
+                size={18}
+                color={theme[currentTheme].iconColor}
+                weight='duotone'
+              />
+            }
+            price='R$ 410,00'
+          />
 
-          <View style={styles.card}>
-            <Pressable onPress={handleDetails}
-              style={styles.cardButton}>
-              <Image style={styles.cardImage}
-              source={require("../src/assets/hotel.png")}
+          <CardsBuildingPrice
+            id='005'
+            nameHouse='Rio Penthouse'
+            adress='Rio de Janeiro, Brazil'
+            image={{
+              uri: 'https://images.pexels.com/photos/15106299/pexels-photo-15106299.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            }}
+            iconAvaliation={
+              <StarIcon
+                size={18}
+                color={theme[currentTheme].starColor}
+                weight='fill'
               />
-            <View style={styles.cardInfo}>
-              <View style= {styles.cardInfoTop}>
-                <Text style={styles.cardInfoTitle}>Hotel Nova Vista</Text>
-                <Text style={styles.cardInfoSubTitle}>Posse, Goiás</Text>
-              </View>
-              <View style= {styles.cardInfoBottom}>
-                <View style={styles.cardInfoRate}>
-                  <StarIcon 
-                    color={theme[currentTheme].starColor}
-                    size={16} 
-                    weight="fill"
-                  /> 
-                  <Text style={styles.cardInfoRateText}>
-                    4.8 (200 avaliações)
-                  </Text>
-                  
-                </View>
-              </View>
-              
-            </View>
-          </Pressable>
+            }
+            avaliation='4,6 (1.9k avaliações)'
+            iconFavorite={
+              <BookmarkIcon
+                size={18}
+                color={theme[currentTheme].iconColor}
+                weight='duotone'
+              />
+            }
+            price='R$ 270,00'
+          />
 
-          <View style={styles.cardInfoBuy}>
-            <Text style={styles.cardInfoBuyText}>R$ 450,00</Text>
-              <BookmarkIcon 
-                size={32} 
-                color="#f4f4f4" 
-                weight="fill" 
+          <CardsBuildingPrice
+            id='007'
+            nameHouse='Alpine Chalet'
+            adress='Swiss Alps, Switzerland'
+            image={{
+              uri: 'https://images.pexels.com/photos/189333/pexels-photo-189333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            }}
+            iconAvaliation={
+              <StarIcon
+                size={18}
+                color={theme[currentTheme].starColor}
+                weight='fill'
               />
-          </View>
-          </View>
-
-          <View style={styles.card}>
-            <Pressable onPress={handleDetails}
-              style={styles.cardButton}>
-              <Image style={styles.cardImage}
-              source={require("../src/assets/hotel.png")}
+            }
+            avaliation='4,9 (1.4k avaliações)'
+            iconFavorite={
+              <BookmarkIcon
+                size={18}
+                color={theme[currentTheme].iconColor}
+                weight='duotone'
               />
-            <View style={styles.cardInfo}>
-              <View style= {styles.cardInfoTop}>
-                <Text style={styles.cardInfoTitle}>Hotel Nova Vista</Text>
-                <Text style={styles.cardInfoSubTitle}>Posse, Goiás</Text>
-              </View>
-              <View style= {styles.cardInfoBottom}>
-                <View style={styles.cardInfoRate}>
-                  <StarIcon 
-                    color={theme[currentTheme].starColor}
-                    size={16} 
-                    weight="fill"
-                  /> 
-                  <Text style={styles.cardInfoRateText}>
-                    4.8 (200 avaliações)
-                  </Text>
-                  
-                </View>
-              </View>
-              
-            </View>
-          </Pressable>
-
-          <View style={styles.cardInfoBuy}>
-            <Text style={styles.cardInfoBuyText}>R$ 450,00</Text>
-              <BookmarkIcon 
-                size={32} 
-                color="#f4f4f4" 
-                weight="fill" 
-              />
-          </View>
-          </View>
-          
-          <View style={styles.card}>
-            <Pressable onPress={handleDetails}
-              style={styles.cardButton}>
-              <Image style={styles.cardImage}
-              source={require("../src/assets/hotel.png")}
-              />
-            <View style={styles.cardInfo}>
-              <View style= {styles.cardInfoTop}>
-                <Text style={styles.cardInfoTitle}>Hotel Nova Vista</Text>
-                <Text style={styles.cardInfoSubTitle}>Posse, Goiás</Text>
-              </View>
-              <View style= {styles.cardInfoBottom}>
-                <View style={styles.cardInfoRate}>
-                  <StarIcon 
-                    color={theme[currentTheme].starColor}
-                    size={16} 
-                    weight="fill"
-                  /> 
-                  <Text style={styles.cardInfoRateText}>
-                    4.8 (200 avaliações)
-                  </Text>
-                  
-                </View>
-              </View>
-              
-            </View>
-          </Pressable>
-
-          <View style={styles.cardInfoBuy}>
-            <Text style={styles.cardInfoBuyText}>R$ 450,00</Text>
-              <BookmarkIcon 
-                size={32} 
-                color="#f4f4f4" 
-                weight="fill" 
-              />
-          </View>
-          </View>
-
-          
+            }
+            price='R$ 480,00'
+          />
         </View>
-        
       </ScrollView>
     </View>
   );
 }
-export const createStyles = (currentTheme: "dark" | "light") =>
+export const createStyles = (currentTheme: 'dark' | 'light') =>
   StyleSheet.create({
-  container: {
+    container: {
       flex: 1,
       backgroundColor: theme[currentTheme].background,
       paddingHorizontal: 28,
@@ -294,26 +227,26 @@ export const createStyles = (currentTheme: "dark" | "light") =>
 
     header: {
       marginTop: 80,
-      flexDirection: "row",
-      justifyContent: "space-between",
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
 
     headerLeft: {
-      flexDirection: "row",
-      alignItems: "center",
+      flexDirection: 'row',
+      alignItems: 'center',
       gap: 10,
     },
 
     headerRight: {
-      flexDirection: "row",
-      alignItems: "center",
+      flexDirection: 'row',
+      alignItems: 'center',
       gap: 10,
     },
 
     headerLeftText: {
       color: theme[currentTheme].textPrimary,
       fontSize: 24,
-      fontWeight: "800",
+      fontWeight: '800',
     },
 
     userName: {
@@ -321,16 +254,16 @@ export const createStyles = (currentTheme: "dark" | "light") =>
       paddingBottom: 30,
       color: theme[currentTheme].textPrimary,
       fontSize: 25,
-      fontWeight: "800",
+      fontWeight: '800',
     },
 
     inputContainer: {
-      width: "100%",
+      width: '100%',
       height: 56,
       backgroundColor: theme[currentTheme].input,
       borderRadius: 12,
-      flexDirection: "row",
-      alignItems: "center",
+      flexDirection: 'row',
+      alignItems: 'center',
       paddingHorizontal: 20,
       gap: 10,
       marginBottom: 20,
@@ -343,7 +276,7 @@ export const createStyles = (currentTheme: "dark" | "light") =>
 
     content: {
       marginRight: 28,
-      width: "100%",
+      width: '100%',
       gap: 20,
     },
 
@@ -354,79 +287,4 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     scrollContent: {
       paddingBottom: 10,
     },
-
-    card: {
-      width: "100%",
-      height: 120,
-      backgroundColor: theme[currentTheme].card,
-      borderRadius: 12,
-      alignItems: "center",
-      flexDirection: "row",
-      paddingHorizontal: 10,
-      justifyContent: "space-between",
-    },
-
-    cardButton: {
-      alignItems: "flex-start",
-      flexDirection: "row",
-      gap: 10,
-    },
-
-    cardImage: {
-      width: 90,
-      height: 90,
-      borderRadius: 12,
-    },
-
-    cardInfo: {
-      height: "100%",
-      gap: 10,
-    },
-
-    cardInfoTop: {
-      justifyContent: "center",
-      gap: 4,
-    },
-
-    cardInfoBottom: {
-      justifyContent: "center",
-    },
-
-    cardInfoRate: {
-      flexDirection: "row",
-      alignItems: "center",
-      gap: 10,
-    },
-
-    cardInfoRateText: {
-      color: theme[currentTheme].textPrimary,
-      fontSize: 14,
-      fontWeight: "500",
-    },
-
-    cardInfoTitle: {
-      color: theme[currentTheme].textPrimary,
-      fontSize: 16,
-      fontWeight: "400",
-    },
-
-    cardInfoSubTitle: {
-      color: theme[currentTheme].textSecondary,
-      fontSize: 14,
-      fontWeight: "300",
-    },
-
-    cardInfoBuy: {
-      height: "100%",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 30,
-    },
-
-    cardInfoBuyText: {
-      color: theme[currentTheme].accent,
-      fontSize: 18,
-      fontWeight: "900",
-    },
   });
-
