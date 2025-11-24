@@ -1,10 +1,10 @@
 import { ChatsTeardropIcon, MagnifyingGlassIcon } from 'phosphor-react-native';
 import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { theme } from '../src/global/themes';
+import { theme } from '../../src/global/themes';
 import { useContext, useState } from 'react';
-import { ThemeContext } from '../src/context/themeContext';
-import ButtonFilter from '../src/components/buttonFilter';
-import CardsBuilding from '../src/components/cardsBuilding';
+import { ThemeContext } from '../../src/context/themeContext';
+import ButtonFilter from '../../src/components/buttonFilter';
+import CardsBuilding from '../../src/components/cardsBuilding';
 
 export default function Booking() {
   const { currentTheme } = useContext(ThemeContext) as {

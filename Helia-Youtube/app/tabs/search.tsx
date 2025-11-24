@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { View, StyleSheet, TextInput, ScrollView } from 'react-native';
 
-import { ThemeContext } from '../src/context/themeContext';
-import { theme } from '../src/global/themes';
+import { ThemeContext } from '../../src/context/themeContext';
+import { theme } from '../../src/global/themes';
 
 import {
   BookmarkIcon,
@@ -11,8 +11,8 @@ import {
   StarIcon,
 } from 'phosphor-react-native';
 
-import ButtonFilter from '../src/components/buttonFilter';
-import CardsBuildingPrice from '../src/components/cardsBuildingPrice';
+import ButtonFilter from '../../src/components/buttonFilter';
+import CardsBuildingPrice from '../../src/components/cardsBuildingPrice';
 
 export default function Search() {
   const { currentTheme } = useContext(ThemeContext) as {
@@ -171,10 +171,10 @@ export default function Search() {
 
           <CardsBuildingPrice
             id="012"
-            nameHouse='Urban Loft'
+            nameHouse='Lakeside Retreat'
             adress='New York, USA'
             image={{
-              uri: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              uri: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/05/63/78/c8/the-lakeside-retreat.jpg?w=800&h=400&s=1',
             }}
             iconAvaliation={
               <StarIcon
@@ -196,10 +196,10 @@ export default function Search() {
 
           <CardsBuildingPrice
             id="013"
-            nameHouse='Lakeside Retreat'
-            adress='Lake Como, Italy'
+            nameHouse='Desert Oasis'
+            adress='Dubai, UAE'
             image={{
-              uri: 'https://images.pexels.com/photos/206648/pexels-photo-206648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpXDPtVh6MUv-ta4Lao7A0mkApBeD3yZUf4A&s',
             }}
             iconAvaliation={
               <StarIcon
@@ -221,10 +221,10 @@ export default function Search() {
 
           <CardsBuildingPrice
             id="014"
-            nameHouse='Desert Oasis'
-            adress='Dubai, UAE'
+            nameHouse='Phi Phi The Beach Resort'
+            adress='Ko Phi Phi Don, Thailand'
             image={{
-              uri: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              uri: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/05/9f/2d/b3/view-from-deluxe-villa.jpg?w=800&h=500&s=1',
             }}
             iconAvaliation={
               <StarIcon

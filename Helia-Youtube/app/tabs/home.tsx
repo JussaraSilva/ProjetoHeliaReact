@@ -11,17 +11,28 @@ import {
   StarIcon,
 } from 'phosphor-react-native';
 
-import { useContext } from 'react';
-import { ThemeContext } from '../src/context/themeContext';
+import { useContext, useState } from 'react';
+import { ThemeContext } from '../../src/context/themeContext';
 
-import { theme } from '../src/global/themes';
-import CardsBuildingPrice from '../src/components/cardsBuildingPrice';
+import { theme } from '../../src/global/themes';
+import CardsBuildingPrice from '../../src/components/cardsBuildingPrice';
+import ButtonFilter from '../../src/components/buttonFilter';
 
 export default function Home() {
   const { currentTheme } = useContext(ThemeContext) as {
     currentTheme: keyof typeof theme;
   };
   const styles = createStyles(currentTheme);
+
+  const [activeFilter, setActiveFilter] = useState('Recommended');
+    const filters = [
+      'Recommended',
+      'Popular',
+      'Trending',
+      'Recent',
+      'Favorites',
+      
+    ];
 
   return (
     <View style={styles.container}>
@@ -62,6 +73,21 @@ export default function Home() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+          <ScrollView horizontal style={styles. filtersRecomendations}
+            showsHorizontalScrollIndicator={false}
+          >
+          {filters.map((label) => (
+                    <ButtonFilter
+                      key={label}
+                      label={label}
+                      isActive={activeFilter === label}
+                      onPress={() => setActiveFilter(label)}
+                    />
+                  ))}
+          </ScrollView>
+
+          
+
         <View style={styles.content}>
           <CardsBuildingPrice
             id='001'
@@ -286,5 +312,10 @@ export const createStyles = (currentTheme: 'dark' | 'light') =>
 
     scrollContent: {
       paddingBottom: 10,
+    },
+
+    filtersRecomendations: {
+      // simple spacing for the horizontal filters row
+      marginBottom: 12,
     },
   });

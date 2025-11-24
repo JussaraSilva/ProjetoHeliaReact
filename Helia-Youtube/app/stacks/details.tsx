@@ -3,8 +3,9 @@ import { ArrowLeftIcon, BathtubIcon, BedIcon, BookmarkIcon, BuildingApartmentIco
 import { useContext } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { ThemeContext } from "../src/context/themeContext";
-import { theme } from "../src/global/themes";
+import { ThemeContext } from "../../src/context/themeContext";
+import { theme } from "../../src/global/themes";
+import housesData from "../../src/data/houses.json";
 
 
 
@@ -20,6 +21,8 @@ const responsiveSize: IResponsiveSize = (size: number): number => {
 };
 
 export default function Details() {
+
+  
 
     const { currentTheme } = useContext(ThemeContext);
       const styles = createStyles(currentTheme);
@@ -40,6 +43,12 @@ export default function Details() {
       function arrowBackPage() {
           router.navigate('/tabs/home');
       }
+
+       const house = housesData.houses.find((h) => h.id === params.id);
+
+        if (!house) {
+          return <Text>Erro: imóvel não encontrado.</Text>;
+        }
 
 
     return (
@@ -83,37 +92,20 @@ export default function Details() {
               <Text style = {styles.containerGaleriaVerTodosTexto}>Ver todas</Text>
             </View>
 
-              <ScrollView 
-                horizontal 
-                style={styles.contentFotosContainer}
-                showsHorizontalScrollIndicator={false}
-              >
-              <Image 
-                style = {styles.contentPhotoImg}
-                source = {require("../src/assets/hotel.png")}
-              />
-              <Image 
-                style = {styles.contentPhotoImg}
-                source = {require("../src/assets/hotel.png")}
-              />
-              <Image 
-                style = {styles.contentPhotoImg}
-                source = {require("../src/assets/hotel.png")}
-              />
-              <Image 
-                style = {styles.contentPhotoImg}
-                source = {require("../src/assets/hotel.png")}
-              />
-              <Image 
-                style = {styles.contentPhotoImg}
-                source = {require("../src/assets/hotel.png")}
-              />
-              <Image 
-                style = {styles.contentPhotoImg}
-                source = {require("../src/assets/hotel.png")}
-              />
-              
-              </ScrollView>
+              <ScrollView
+                  horizontal
+                  style={styles.contentFotosContainer}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{ paddingRight: 25 }}
+                >
+                  {house.gallery.map((photo: string, index: number) => (
+                    <Image
+                      key={index}
+                      style={styles.contentPhotoImg}
+                      source={{ uri: photo }}
+                    />
+                  ))}
+                </ScrollView>
 
             <View style = {styles.containerDetails}>
               <Text style = {styles.containerDetailsTitle}>Details</Text>
@@ -165,6 +157,8 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     container: {
         flex: 1,
         backgroundColor: theme[currentTheme].background,
+        justifyContent: 'space-between',
+        
         
     },
 
@@ -247,7 +241,8 @@ export const createStyles = (currentTheme: "dark" | "light") =>
 
     
 
-    contentFotosContainer: {       
+    contentFotosContainer: {  
+             
         paddingHorizontal: 30,
         paddingTop: 10,
         flex:1,
@@ -299,7 +294,7 @@ export const createStyles = (currentTheme: "dark" | "light") =>
       justifyContent:"space-between",     
       borderWidth:1,
       padding:10,
-      marginTop:20,
+      marginTop:40,
       borderRightColor:theme[currentTheme].borderBottomColor,
       borderLeftColor:theme[currentTheme].borderBottomColor,
       borderTopColor:theme[currentTheme].borderBottomColor,
@@ -329,7 +324,6 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     },
 
     footerContainerButton: {
-      
       alignItems: 'center',
       justifyContent: 'center',
       

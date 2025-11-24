@@ -1,4 +1,5 @@
-{
+{ 
+  
   "houses": [
     {
       "id": "001",
@@ -35,9 +36,12 @@
       "name": "Santorini View",
       "gallery": [
         "https://images.pexels.com/photos/161815/santorini-oia-greece-water-161815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/161816/santorini-oia-greece-water-161816.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/161817/santorini-oia-greece-water-161817.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/161818/santorini-oia-greece-water-161818.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8kzK77rudVCKfwlYL-pWmjyGnq2njgAUZCw&s",
+
+        "https://www.jet2holidays.com/HotelImages/Web/JTR_85504_Santorini_View_Hotell_0523_40.jpg",
+
+        "https://www.greektravel.com/greekislands/santorini/hotel-volcano-view.jpg"
       ]
     },
     {
@@ -65,9 +69,12 @@
       "name": "Alpine Chalet",
       "gallery": [
         "https://images.pexels.com/photos/189333/pexels-photo-189333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+
         "https://images.pexels.com/photos/189334/pexels-photo-189334.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/189335/pexels-photo-189335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/189336/pexels-photo-189336.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+
+        "https://honka.com/app/uploads/sites/35/2016/06/alpine2.jpg",
+
+        "https://honka.com/wp-json/image/resize?w=1200&h=630&src=reference%2Falpine-chalet%2FAlpineChalet_cover.jpg"
       ]
     },
     {
@@ -115,9 +122,12 @@
       "name": "Lakeside Retreat",
       "gallery": [
         "https://images.pexels.com/photos/206648/pexels-photo-206648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+
         "https://images.pexels.com/photos/206649/pexels-photo-206649.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/206650/pexels-photo-206650.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/206651/pexels-photo-206651.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+
+        "https://www.majordomo.co.nz/wp-content/uploads/mount-cook-lakeside-retreat-tatutoru-gallery-08.jpg",
+
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUN1lIFK1xOQb9t1GxcKgu0NM6jDF3ihnLNg&s"
       ]
     },
     {
@@ -132,13 +142,14 @@
     },
     {
       "id": "014",
-      "name": "Modern Villa",
+      "name": "Phi Phi The Beach Resort",
       "gallery": [
-        "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/258192/pexels-photo-258192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        "https://content.r9cdn.net/rimg/himg/a9/88/8d/expedia_group-365853-19976534-834964.jpg?width=1366&height=768&crop=true",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCEd6lMll90hUIYtOu09iJNPYmH857fOuveIqbUK5cLgafgPD295JmlgKmuhujsu_m4ps&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvFtXmx-jyabG9VFOAJbxHye1YkYkEPpxlZKb7k37YrODxKrWFrsnHCwrfYob9S3mYi3k&usqp=CAU",
+        "https://www.kayak.com/rimg/kimg/5a/b9/93fea6609244580e.jpg?width=836&height=607&crop=true"
       ]
     }
   ]
+  
 }

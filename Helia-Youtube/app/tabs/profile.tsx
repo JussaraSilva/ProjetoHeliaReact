@@ -1,9 +1,9 @@
 import { BellIcon, ChatsTeardropIcon, CreditCardIcon, DotsThreeCircleIcon, InfoIcon, PaintBucketIcon, PencilSimpleIcon, ShieldCheckIcon, SignOutIcon, } from "phosphor-react-native";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import ProfileOptions from "../src/components/profileOptions";
-import { theme } from "../src/global/themes";
+import ProfileOptions from "../../src/components/profileOptions";
+import { theme } from "../../src/global/themes";
 import { useContext } from "react";
-import { ThemeContext } from "../src/context/themeContext";
+import { ThemeContext } from "../../src/context/themeContext";
 
 
 
