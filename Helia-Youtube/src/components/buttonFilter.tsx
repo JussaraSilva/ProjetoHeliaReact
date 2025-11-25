@@ -2,7 +2,7 @@
 import {useContext} from "react";
 import {StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ThemeContext } from "../context/themeContext";
-import { theme } from "../global/themes";
+import { theme } from "../styles/themes";
 
 type Props = {
     label?: string;

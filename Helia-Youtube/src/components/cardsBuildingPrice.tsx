@@ -9,13 +9,13 @@ import {
   Pressable,
 } from 'react-native';
 import { ThemeContext } from '../context/themeContext';
-import { theme } from '../global/themes';
+import { theme } from '../styles/themes';
 import { useRouter } from 'expo-router';
 
 type CardsBuildingPriceProps = {
   nameHouse: string;
   id: string;
-  adress: string;
+  address: string;
   image: { uri: string };
   iconAvaliation: React.ReactNode;
   avaliation: string;
@@ -26,7 +26,7 @@ type CardsBuildingPriceProps = {
 export default function CardsBuildingPrice({
   nameHouse,
   id,
-  adress,
+  address,
   image,
   price,
   iconAvaliation,
@@ -46,7 +46,7 @@ export default function CardsBuildingPrice({
       params: {
         id,
         nameHouse,
-        adress,
+        address,
         price,
         avaliation,
         image: image.uri,
@@ -66,7 +66,7 @@ export default function CardsBuildingPrice({
                 <View style={styles.cardInfo}>
                   <View style={styles.cardInfoTop}>
                     <Text style={styles.cardInfoTitle}>{nameHouse}</Text>
-                    <Text style={styles.cardInfoSubTitle}>{adress}</Text>
+                    <Text style={styles.cardInfoSubTitle}>{address}</Text>
                   </View>
                   <View style={styles.cardInfoBottom}>
                     <View style={styles.cardInfoRate}>

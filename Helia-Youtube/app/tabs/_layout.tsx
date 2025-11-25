@@ -1,7 +1,7 @@
 import {Tabs } from "expo-router";
 
 import { HouseIcon, MagnifyingGlassIcon, NotebookIcon, UserCircleIcon} from "phosphor-react-native";
-import { theme } from "../../src/global/themes";
+import { theme } from "../../src/styles/themes";
 import { useContext } from "react";
 import { ThemeContext } from "../../src/context/themeContext";
 

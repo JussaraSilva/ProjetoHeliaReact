@@ -2,7 +2,7 @@
 import { useRef, useContext, useEffect } from "react";
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ThemeContext } from "../context/themeContext";
-import { theme } from "../global/themes";
+import { theme } from "../styles/themes";
 
 type Props = {
   icon?: React.ReactNode;

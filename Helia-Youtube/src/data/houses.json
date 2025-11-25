@@ -1,9 +1,12 @@
-{ 
-  
+{
   "houses": [
     {
       "id": "001",
       "name": "President Hotel",
+      "address": "Paris, France",
+      "avaliationNote": "4,8",
+      "avaliation": "4,8 (4.2k avaliações)",
+      "price": "R$ 200,00",
       "gallery": [
         "https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000",
         "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -14,6 +17,10 @@
     {
       "id": "002",
       "name": "Forest Cabin",
+      "address": "British Columbia, Canada",
+      "avaliationNote": "4,8",
+      "avaliation": "4,8 (956 avaliações)",
+      "price": "R$ 190,00",
       "gallery": [
         "https://images.pexels.com/photos/2725675/pexels-photo-2725675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/2066487/pexels-photo-2066487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -24,6 +31,10 @@
     {
       "id": "003",
       "name": "Tokyo Skyline",
+      "address": "Tokyo, Japan",
+      "avaliationNote": "4,9",
+      "avaliation": "4,9 (2.7k avaliações)",
+      "price": "R$ 320,00",
       "gallery": [
         "https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -34,19 +45,24 @@
     {
       "id": "004",
       "name": "Santorini View",
+      "address": "Santorini, Greece",
+      "avaliationNote": "4,7",
+      "avaliation": "4,7 (3.8k avaliações)",
+      "price": "R$ 410,00",
       "gallery": [
         "https://images.pexels.com/photos/161815/santorini-oia-greece-water-161815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8kzK77rudVCKfwlYL-pWmjyGnq2njgAUZCw&s",
-
         "https://www.jet2holidays.com/HotelImages/Web/JTR_85504_Santorini_View_Hotell_0523_40.jpg",
-
         "https://www.greektravel.com/greekislands/santorini/hotel-volcano-view.jpg"
       ]
     },
     {
       "id": "005",
       "name": "Rio Penthouse",
+      "address": "Rio de Janeiro, Brazil",
+      "avaliationNote": "4,9",
+      "avaliation": "4,9 (1.1k avaliações)",
+      "price": "R$ 500,00",
       "gallery": [
         "https://images.pexels.com/photos/15106299/pexels-photo-15106299.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/15106300/pexels-photo-15106300.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -57,6 +73,10 @@
     {
       "id": "006",
       "name": "Urban Loft",
+      "address": "New York, USA",
+      "avaliationNote": "4,6",
+      "avaliation": "4,6 (2.1k avaliações)",
+      "price": "R$ 350,00",
       "gallery": [
         "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/1571461/pexels-photo-1571461.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -67,19 +87,24 @@
     {
       "id": "007",
       "name": "Alpine Chalet",
+      "address": "Swiss Alps",
+      "avaliationNote": "4,9",
+      "avaliation": "4,9 (3.4k avaliações)",
+      "price": "R$ 700,00",
       "gallery": [
         "https://images.pexels.com/photos/189333/pexels-photo-189333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-
         "https://images.pexels.com/photos/189334/pexels-photo-189334.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-
         "https://honka.com/app/uploads/sites/35/2016/06/alpine2.jpg",
-
         "https://honka.com/wp-json/image/resize?w=1200&h=630&src=reference%2Falpine-chalet%2FAlpineChalet_cover.jpg"
       ]
     },
     {
       "id": "008",
       "name": "President Hotel",
+      "address": "London, UK",
+      "avaliationNote": "4,7",
+      "avaliation": "4,7 (1.9k avaliações)",
+      "price": "R$ 240,00",
       "gallery": [
         "https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000",
         "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -90,9 +115,13 @@
     {
       "id": "009",
       "name": "Palms Casino Hotel",
+      "address": "Las Vegas, USA",
+      "avaliationNote": "4,9",
+      "avaliation": "4,9 (8.2k avaliações)",
+      "price": "R$ 620,00",
       "gallery": [
-        "https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000",
-        "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.unsplash.com/photo-1667643976021-c51a29e5605f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE1fHx8ZW58MHx8fHx8",
+        "https://images.unsplash.com/photo-1733605638575-bde491ce714b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.pexels.com/photos/258155/pexels-photo-258155.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/258156/pexels-photo-258156.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
       ]
@@ -100,8 +129,12 @@
     {
       "id": "010",
       "name": "Mountain Lodge",
+      "address": "Aspen, Colorado",
+      "avaliationNote": "4,9",
+      "avaliation": "4,9 (5.1k avaliações)",
+      "price": "R$ 450,00",
       "gallery": [
-        "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.unsplash.com/photo-1583878594798-c31409c8ab4a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bW91bnRhaW4lMjBjYWJpbnxlbnwwfHwwfHx8MA%3D%3D",
         "https://images.pexels.com/photos/258157/pexels-photo-258157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/258158/pexels-photo-258158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/258159/pexels-photo-258159.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -110,6 +143,10 @@
     {
       "id": "011",
       "name": "Beach Paradise",
+      "address": "Maldives",
+      "avaliationNote": "4,7",
+      "avaliation": "4,7 (4.6k avaliações)",
+      "price": "R$ 800,00",
       "gallery": [
         "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/258160/pexels-photo-258160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -120,29 +157,38 @@
     {
       "id": "012",
       "name": "Lakeside Retreat",
+      "address": "Mount Cook, New Zealand",
+      "avaliationNote": "4,9",
+      "avaliation": "4,9 (3.2k avaliações)",
+      "price": "R$ 540,00",
       "gallery": [
         "https://images.pexels.com/photos/206648/pexels-photo-206648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-
         "https://images.pexels.com/photos/206649/pexels-photo-206649.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-
         "https://www.majordomo.co.nz/wp-content/uploads/mount-cook-lakeside-retreat-tatutoru-gallery-08.jpg",
-
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUN1lIFK1xOQb9t1GxcKgu0NM6jDF3ihnLNg&s"
       ]
     },
     {
       "id": "013",
       "name": "Desert Oasis",
+      "address": "Dubai, UAE",
+      "avaliationNote": "4,9",
+      "avaliation": "4,9 (6.9k avaliações)",
+      "price": "R$ 650,00",
       "gallery": [
         "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/323781/pexels-photo-323781.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/323782/pexels-photo-323782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/323783/pexels-photo-323783.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        "https://images.unsplash.com/photo-1629401037347-c8d13f4f97f9?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b2FzaXN8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1489493173507-6feea31f12ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGRlc2VydCUyMG9hc2lzfGVufDB8fDB8fHww"
       ]
     },
     {
       "id": "014",
       "name": "Phi Phi The Beach Resort",
+      "address": "Phi Phi Island, Thailand",
+      "avaliationNote": "4,7",
+      "avaliation": "4,7 (1.5k avaliações)",
+      "price": "R$ 380,00",
       "gallery": [
         "https://content.r9cdn.net/rimg/himg/a9/88/8d/expedia_group-365853-19976534-834964.jpg?width=1366&height=768&crop=true",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCEd6lMll90hUIYtOu09iJNPYmH857fOuveIqbUK5cLgafgPD295JmlgKmuhujsu_m4ps&usqp=CAU",
@@ -151,5 +197,4 @@
       ]
     }
   ]
-  
 }

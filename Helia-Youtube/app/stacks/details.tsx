@@ -1,11 +1,16 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { ArrowLeftIcon, BathtubIcon, BedIcon, BookmarkIcon, BuildingApartmentIcon, DotsThreeIcon, MapPinIcon, VectorThreeIcon } from "phosphor-react-native";
+import * as Icons from "phosphor-react-native";
 import { useContext } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { ThemeContext } from "../../src/context/themeContext";
-import { theme } from "../../src/global/themes";
+import { theme } from "../../src/styles/themes";
 import housesData from "../../src/data/houses.json";
+import IconsDetailsComponents from "../../src/components/iconsDetailsComponent";
+import IconsServicesComponents from "../../src/components/iconsServicesComponent";
+import ExternalMap from "../../src/components/simpleMapProps";
+
+
 
 
 
@@ -60,15 +65,15 @@ export default function Details() {
 
                 <View style = {styles.headerInfoButtons}>
                     <TouchableOpacity onPress={arrowBackPage}>
-                        <ArrowLeftIcon 
+                        <Icons.ArrowLeftIcon 
                           size={32} 
                           color='#f4f4f4' 
                           weight='regular'/>
                     </TouchableOpacity>
                     <View style = {styles.headerInfoButtonsRight}>
-                      <BookmarkIcon size={32} color='#f4f4f4' weight='regular'/>
+                      <Icons.BookmarkIcon size={32} color='#f4f4f4' weight='regular'/>
 
-                      <DotsThreeIcon size={32} color='#f4f4f4' weight='regular'/>
+                      <Icons.DotsThreeIcon size={32} color='#f4f4f4' weight='regular'/>
                   </View>
               </View>
           </View>
@@ -78,7 +83,7 @@ export default function Details() {
               {params.nameHouse}
             </Text>
             <View style = {styles.infoLocalizacao}>
-                <MapPinIcon size={32} color='#1ab65c' weight='fill'/>
+                <Icons.MapPinIcon size={32} color='#1ab65c' weight='fill'/>
                 <Text style = {styles.infoLocalizacaoEnderecoText}>
                   {params.adress}
                 </Text>
@@ -92,9 +97,7 @@ export default function Details() {
               <Text style = {styles.containerGaleriaVerTodosTexto}>Ver todas</Text>
             </View>
 
-              <ScrollView
-                  horizontal
-                  style={styles.contentFotosContainer}
+                <ScrollView horizontal style={styles.contentFotosContainer}
                   showsHorizontalScrollIndicator={false}
                   contentContainerStyle={{ paddingRight: 25 }}
                 >
@@ -111,23 +114,139 @@ export default function Details() {
               <Text style = {styles.containerDetailsTitle}>Details</Text>
             <View style = {styles.contentDetails}>
                 <View style = {styles.containerIconsDetails}>
-                  <BuildingApartmentIcon size={32} color='#1ab65c' weight='fill'/>
-                  <Text style = {styles.detailsIconsText}>Hotels</Text>
-                </View>
-                <View style = {styles.containerIconsDetails}>
-                  <BedIcon size={32} color='#1ab65c' weight='fill'/>
-                  <Text style = {styles.detailsIconsText}>4 Bedrooms</Text>
-                </View>
-                <View style = {styles.containerIconsDetails}>
-                  <BathtubIcon size={32} color='#1ab65c' weight='fill'/>
-                  <Text style = {styles.detailsIconsText}>2 Bathrooms</Text>
-                </View>
-                <View style = {styles.containerIconsDetails}>
-                  <VectorThreeIcon size={32} color='#1ab65c' weight='fill'/>
-                  <Text style = {styles.detailsIconsText}>4000 Metros²</Text>
+                    <IconsDetailsComponents
+                      icon=
+                      {<Icons.BuildingApartmentIcon 
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                      detailsText="Hotels"
+                    />
+                    <IconsDetailsComponents
+                      icon=
+                      {<Icons.BedIcon 
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                      detailsText="4 Bedrooms"
+                    />
+                    <IconsDetailsComponents
+                      icon=
+                      {<Icons.BathtubIcon 
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                      detailsText="2 Bathrooms"
+                    />
+
+                    <IconsDetailsComponents
+                      icon=
+                      {<Icons.VectorThreeIcon 
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+
+                      detailsText="4000 mts²"
+                    />
                 </View>
             </View> 
 
+            </View>
+
+            <View style = {styles.descriptionContainer}>
+                    <Text style = {styles.descriptionContainerTitle}>Description</Text>
+              <View style = {styles.descriptionContent}>
+                    <Text style = {styles.descriptionContainerText}>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, rem, laudantium modi omnis doloremque eos harum quidem distinctio dignissimos totam ducimus quos, accusamus eveniet nihil facilis quo consequuntur veritatis. Quisquam.
+                      Quia nam velit perspiciatis. Ducimus porro eius a, facere alias omnis inventore nobis maxime et quos maiores incidunt fuga, facilis esse fugit, asperiores voluptates eveniet sequi quasi! Quod, maxime dolor!
+                      
+                    </Text>
+              </View>
+              
+            </View>
+
+            <View style = {styles.facilitiesContainer}>
+              <Text style = {styles.facilitiesTitle}> Facilities</Text>
+
+              <View style = {styles.facilitiesIconsContainer}>
+                <IconsServicesComponents
+                    icon={
+                      <Icons.SwimmingPoolIcon
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                    serviceText="Swimming Pool"
+                />
+                <IconsServicesComponents
+                    icon={
+                      <Icons.WifiHighIcon
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                    serviceText="Wifi"
+                />
+                <IconsServicesComponents
+                    icon={
+                      <Icons.ForkKnifeIcon
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                    serviceText="Restaurant"
+                />
+                <IconsServicesComponents
+                    icon={
+                      <Icons.LetterCirclePIcon
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                    serviceText="Parking"
+                />
+                
+                <IconsServicesComponents
+                    icon={
+                      <Icons.ChalkboardTeacherIcon
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                    serviceText="Meeting Room"
+                />
+                <IconsServicesComponents
+                    icon={
+                      <Icons.ElevatorIcon
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                    serviceText="Elevator"
+                />
+                <IconsServicesComponents
+                    icon={
+                      <Icons.BarbellIcon
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                    serviceText="Fitness Center"
+                />
+                <IconsServicesComponents
+                    icon={
+                      <Icons.ArrowsClockwiseIcon
+                        size={32} 
+                        color={theme[currentTheme].iconColor} 
+                        weight='fill'/>}
+                    serviceText="24-Hours Open"
+                />
+                
+              </View>
+                  
+            </View>
+
+            <View style = {styles.locationContainer}>
+                  <Text style = {styles.locationContainerTitle}>Location</Text>
+                  <View style = {styles.locationContainerMap}>
+                    <ExternalMap 
+                        address={params.adress} 
+                        hotelName={params.nameHouse} 
+                    />
+                  </View>
             </View>
 
             <View style = {styles.footer}>
@@ -242,7 +361,6 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     
 
     contentFotosContainer: {  
-             
         paddingHorizontal: 30,
         paddingTop: 10,
         flex:1,
@@ -257,7 +375,7 @@ export const createStyles = (currentTheme: "dark" | "light") =>
 
     containerDetails: {
         flexDirection: "column",
-        paddingHorizontal: 30,
+        paddingHorizontal: 20,
     },
 
     containerDetailsTitle: {
@@ -272,27 +390,101 @@ export const createStyles = (currentTheme: "dark" | "light") =>
       flexDirection: "row",
       width: "100%",
       gap: 20,
-      paddingHorizontal: 50,
       justifyContent:"center",
 
     },
 
     containerIconsDetails: {
-      flexDirection: "column",
-      alignItems:"center",
-      justifyContent:"center",
+      flexDirection: "row",
+      gap:20,
+      
     },
 
-    detailsIconsText: {
-        fontSize:14,
-        color:theme[currentTheme].textPrimary,
-        fontWeight:"bold",
+    descriptionContainer: {
+      flexDirection:"column",
+      paddingHorizontal:20,
+      gap:15,
+      marginTop:15,
+    },
+
+    descriptionContent: {
+      flexDirection:"column",
+      paddingHorizontal:10,
+    },
+
+    descriptionContainerTitle: {
+      color:theme[currentTheme].textPrimary,
+      fontSize:18,
+      fontWeight:"bold",
+      
+    },
+
+    descriptionContainerText: {
+      color:theme[currentTheme].textPrimary,
+      fontSize:14,
+      fontWeight:"bold",
+    },
+
+    contentDescriptionText: {
+      color:theme[currentTheme].textPrimary,
+      fontSize:14,
+      marginTop:10,
+    },
+
+    facilitiesTitle: {
+      color:theme[currentTheme].textPrimary,
+      fontSize:18,
+      fontWeight:"bold",
+
+    },
+
+
+    facilitiesContainer: {
+      flexDirection: "column",
+      paddingHorizontal: 20,
+      gap: 10,
+      marginTop: 15,
+      width: '100%',
+    },
+
+    facilitiesIconsContainer: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: 10,
+      justifyContent: "space-between",
+      width: '100%',
+    },
+
+    locationContainer: {
+      flexDirection:"column",
+      paddingHorizontal:20,
+      gap:15,
+      marginTop:15,
+
+    },
+
+    locationContainerMap: {
+
+    },
+
+    locationContainerTitle: {
+      color:theme[currentTheme].textPrimary,
+      fontSize:18,
+      fontWeight:"bold",
+      
+    },
+
+    locationContainerText: {
+      color:theme[currentTheme].textPrimary,
+      fontSize:14,
+      fontWeight:"bold",
     },
 
     footer: {
       flexDirection:"row",
       justifyContent:"space-between",     
       borderWidth:1,
+      gap:10,
       padding:10,
       marginTop:40,
       borderRightColor:theme[currentTheme].borderBottomColor,
@@ -330,26 +522,19 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     },
     button: {
       backgroundColor: theme[currentTheme].accent,
-      width:responsiveSize(210),
+      width:responsiveSize(180),
       height: responsiveSize(56),
       borderRadius: responsiveSize(36),
       alignItems: 'center',
       justifyContent: 'center',
-      maxWidth: responsiveSize(350),
+      maxWidth: responsiveSize(250),
       
 
     },
     buttonText: {
-        color:theme[currentTheme].textPrimary,
+        color:"#f4f4f4",
         fontSize:26,
         fontWeight:"800",
     },
-
-    
-
-
-
-
-
 
 });

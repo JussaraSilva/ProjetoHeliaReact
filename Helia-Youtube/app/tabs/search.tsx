@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { View, StyleSheet, TextInput, FlatList } from 'react-native';
 
 import { ThemeContext } from '../../src/context/themeContext';
-import { theme } from '../../src/global/themes';
+import { theme } from '../../src/styles/themes';
 
 import {
   BookmarkIcon,
@@ -13,6 +13,7 @@ import {
 
 import ButtonFilter from '../../src/components/buttonFilter';
 import CardsBuildingPrice from '../../src/components/cardsBuildingPrice';
+import housesData from '../../src/data/houses.json';
 
 export default function Search() {
   const { currentTheme } = useContext(ThemeContext) as {
@@ -31,221 +32,84 @@ export default function Search() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <MagnifyingGlassIcon
-          size={30}
-          color={theme[currentTheme].iconColor}
-          weight='duotone'
-        />
-        <TextInput
-          style={styles.input}
-          placeholder='Busque uma casa aqui'
-          placeholderTextColor={'#757575'}
-        />
-        <SlidersHorizontalIcon
-          size={30}
-          color={theme[currentTheme].accent}
-          weight='duotone'
-        />
-      </View>
-
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.filterContainer}
-      >
-        {filters.map((label) => (
-          <ButtonFilter
-            key={label}
-            label={label}
-            isActive={activeFilter === label}
-            onPress={() => setActiveFilter(label)}
+  <FlatList
+    data={[1]}
+    keyExtractor={() => 'main'}
+    showsVerticalScrollIndicator={false}
+    renderItem={() => (
+      <View style={{ gap: 10 }}>
+        
+        {/* INPUT */}
+        <View style={styles.inputContainer}>
+          <MagnifyingGlassIcon
+            size={30}
+            color={theme[currentTheme].iconColor}
+            weight="duotone"
           />
-        ))}
-      </ScrollView>
-
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.content}>
-          <CardsBuildingPrice
-            id="008"
-            nameHouse='President Hotel'
-            adress='Paris, France'
-            image={{
-              uri: 'https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,8 (4.2k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 200,00'
+          <TextInput
+            style={styles.input}
+            placeholder="Busque uma casa aqui"
+            placeholderTextColor="#757575"
           />
-          <CardsBuildingPrice
-            id="009"
-            nameHouse='Palms Casino Hotel'
-            adress='Amsteram, Netherlands'
-            image={{
-              uri: 'https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,8 (4.2k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 200,00'
-          />
-
-          <CardsBuildingPrice
-            id="010"
-            nameHouse='Mountain Lodge'
-            adress='Aspen, Colorado'
-            image={{
-              uri: 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,9 (1.8k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 350,00'
-          />
-
-          <CardsBuildingPrice
-            id="011"
-            nameHouse='Beach Paradise'
-            adress='Maldives'
-            image={{
-              uri: 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,7 (3.1k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 520,00'
-          />
-
-          <CardsBuildingPrice
-            id="012"
-            nameHouse='Lakeside Retreat'
-            adress='New York, USA'
-            image={{
-              uri: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/05/63/78/c8/the-lakeside-retreat.jpg?w=800&h=400&s=1',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,5 (2.4k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 280,00'
-          />
-
-          <CardsBuildingPrice
-            id="013"
-            nameHouse='Desert Oasis'
-            adress='Dubai, UAE'
-            image={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpXDPtVh6MUv-ta4Lao7A0mkApBeD3yZUf4A&s',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,9 (1.2k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 450,00'
-          />
-
-          <CardsBuildingPrice
-            id="014"
-            nameHouse='Phi Phi The Beach Resort'
-            adress='Ko Phi Phi Don, Thailand'
-            image={{
-              uri: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/05/9f/2d/b3/view-from-deluxe-villa.jpg?w=800&h=500&s=1',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,6 (3.5k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 380,00'
+          <SlidersHorizontalIcon
+            size={30}
+            color={theme[currentTheme].accent}
+            weight="duotone"
           />
         </View>
-      </ScrollView>
-    </View>
+
+        {/* FLATLIST HORIZONTAL (FILTROS) */}
+        <FlatList
+          data={filters}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          nestedScrollEnabled
+          contentContainerStyle={{ gap: 10 }}
+          renderItem={({ item }) => (
+            <ButtonFilter
+              label={item}
+              isActive={activeFilter === item}
+              onPress={() => setActiveFilter(item)}
+            />
+          )}
+          keyExtractor={(item) => item}
+        />
+
+        {/* FLATLIST VERTICAL (CARDS) */}
+        <FlatList
+          data={housesData.houses.slice(0, 8)}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <CardsBuildingPrice
+              id={item.id}
+              nameHouse={item.name}
+              address={item.address}
+              image={{ uri: item.gallery[0] }}
+              iconAvaliation={
+                <StarIcon
+                  size={18}
+                  color={theme[currentTheme].starColor}
+                  weight="fill"
+                />
+              }
+              avaliation={item.avaliation}
+              iconFavorite={
+                <BookmarkIcon
+                  size={18}
+                  color={theme[currentTheme].iconColor}
+                  weight="duotone"
+                />
+              }
+              price={item.price}
+            />
+          )}
+          contentContainerStyle={{ paddingBottom: 40 }}
+        />
+      </View>
+    )}
+  />
+</View>
+
   );
 }
 

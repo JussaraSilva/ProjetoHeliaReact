@@ -2,6 +2,7 @@ export const theme = {
   dark: {
     background: "#181a20",
     textPrimary: "#f4f4f4",
+    textCardRecomendation: "#f4f4f4",
     textSecondary: "#757575",
     colorGray:"#999999",
     accent: "#1ab65c",
@@ -25,6 +26,7 @@ export const theme = {
     background: "#f2f2f2",
     textPrimary: "#121212",
     textSecondary: "#555555",
+    textCardRecomendation: "#d4d4d4",
     colorGray:"#808080",
     accent: "#1ab65c",
     trackOff: "#d4d4d4",

@@ -1,4 +1,10 @@
-import { Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  FlatList,
+} from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
 
@@ -11,28 +17,22 @@ import {
   StarIcon,
 } from 'phosphor-react-native';
 
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { ThemeContext } from '../../src/context/themeContext';
 
-import { theme } from '../../src/global/themes';
+import { theme } from '../../src/styles/themes';
 import CardsBuildingPrice from '../../src/components/cardsBuildingPrice';
 import ButtonFilter from '../../src/components/buttonFilter';
+import CardsRecomendacao from '../../src/components/cardRecomendacao';
+import housesData from '../../src/data/houses.json';
 
 export default function Home() {
   const { currentTheme } = useContext(ThemeContext) as {
     currentTheme: keyof typeof theme;
   };
-  const styles = createStyles(currentTheme);
-
+  const styles = useMemo(() => createStyles(currentTheme), [currentTheme]);
   const [activeFilter, setActiveFilter] = useState('Recommended');
-    const filters = [
-      'Recommended',
-      'Popular',
-      'Trending',
-      'Recent',
-      'Favorites',
-      
-    ];
+  const filters = ['Recommended', 'Popular', 'Trending', 'Recent', 'Favorites'];
 
   return (
     <View style={styles.container}>
@@ -68,34 +68,57 @@ export default function Home() {
         <SlidersHorizontalIcon size={30} color='#1ab65c' weight='duotone' />
       </View>
 
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+      <FlatList
+        data={housesData.houses.slice(0, 6)} // sua lista vertical principal
+        keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-      >
-          <ScrollView horizontal style={styles. filtersRecomendations}
-            showsHorizontalScrollIndicator={false}
-          >
-          {filters.map((label) => (
-                    <ButtonFilter
-                      key={label}
-                      label={label}
-                      isActive={activeFilter === label}
-                      onPress={() => setActiveFilter(label)}
-                    />
-                  ))}
-          </ScrollView>
+        contentContainerStyle={{ paddingBottom: 30 }}
+        ListHeaderComponent={
+          <>
+            {/* FILTROS (HORIZONTAL) */}
+            <FlatList
+              data={filters}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ gap: 10, marginBottom: 20 }}
+              renderItem={({ item }) => (
+                <ButtonFilter
+                  label={item}
+                  isActive={activeFilter === item}
+                  onPress={() => setActiveFilter(item)}
+                />
+              )}
+              keyExtractor={(item) => item}
+            />
 
-          
+            {/* RECOMENDADOS (HORIZONTAL) */}
+            <FlatList
+              data={housesData.houses.slice(0, 6)}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ gap: 10, marginBottom: 20 }}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <CardsRecomendacao
+                  nameHouse={item.name}
+                  address={item.address}
+                  image={{ uri: item.gallery[0] }}
+                  price={item.price}
+                  avaliationNote={item.avaliationNote}
+                />
+              )}
+            />
 
-        <View style={styles.content}>
+            {/* TÍTULO OU ESPAÇAMENTO */}
+            <View style={{ marginBottom: 10 }} />
+          </>
+        }
+        renderItem={({ item }) => (
           <CardsBuildingPrice
-            id='001'
-            nameHouse='President Hotel'
-            adress='Paris, France'
-            image={{
-              uri: 'https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000',
-            }}
+            id={item.id}
+            nameHouse={item.name}
+            address={item.address}
+            image={{ uri: item.gallery[0] }}
             iconAvaliation={
               <StarIcon
                 size={18}
@@ -103,7 +126,7 @@ export default function Home() {
                 weight='fill'
               />
             }
-            avaliation='4,8 (4.2k avaliações)'
+            avaliation={item.avaliation}
             iconFavorite={
               <BookmarkIcon
                 size={18}
@@ -111,135 +134,10 @@ export default function Home() {
                 weight='duotone'
               />
             }
-            price='R$ 200,00'
+            price={item.price}
           />
-
-          <CardsBuildingPrice
-            id='002'
-            nameHouse='Forest Cabin'
-            adress='British Columbia, Canada'
-            image={{
-              uri: 'https://images.pexels.com/photos/2725675/pexels-photo-2725675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,8 (956 avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 190,00'
-          />
-
-          <CardsBuildingPrice
-            id='003'
-            nameHouse='Tokyo Skyline'
-            adress='Tokyo, Japan'
-            image={{
-              uri: 'https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,9 (2.7k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 320,00'
-          />
-
-          <CardsBuildingPrice
-            id='004'
-            nameHouse='Santorini View'
-            adress='Santorini, Greece'
-            image={{
-              uri: 'https://images.pexels.com/photos/161815/santorini-oia-greece-water-161815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,7 (3.8k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 410,00'
-          />
-
-          <CardsBuildingPrice
-            id='005'
-            nameHouse='Rio Penthouse'
-            adress='Rio de Janeiro, Brazil'
-            image={{
-              uri: 'https://images.pexels.com/photos/15106299/pexels-photo-15106299.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,6 (1.9k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 270,00'
-          />
-
-          <CardsBuildingPrice
-            id='007'
-            nameHouse='Alpine Chalet'
-            adress='Swiss Alps, Switzerland'
-            image={{
-              uri: 'https://images.pexels.com/photos/189333/pexels-photo-189333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-            }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation='4,9 (1.4k avaliações)'
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price='R$ 480,00'
-          />
-        </View>
-      </ScrollView>
+        )}
+      />
     </View>
   );
 }
@@ -314,8 +212,18 @@ export const createStyles = (currentTheme: 'dark' | 'light') =>
       paddingBottom: 10,
     },
 
-    filtersRecomendations: {
-      // simple spacing for the horizontal filters row
+    scrollfiltersRecomendations: {
       marginBottom: 12,
+    },
+
+    scrollCardsRecomendations: {
+      gap: 20,
+    },
+
+    CardsRecomendations: {
+      flexDirection: 'row',
+      alignItems: 'center',
+
+      justifyContent: 'center',
     },
   });
