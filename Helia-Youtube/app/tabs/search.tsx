@@ -77,31 +77,34 @@ export default function Search() {
 
         {/* FLATLIST VERTICAL (CARDS) */}
         <FlatList
+          
           data={housesData.houses.slice(0, 8)}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <CardsBuildingPrice
-              id={item.id}
-              nameHouse={item.name}
-              address={item.address}
-              image={{ uri: item.gallery[0] }}
-              iconAvaliation={
-                <StarIcon
-                  size={18}
-                  color={theme[currentTheme].starColor}
-                  weight="fill"
-                />
-              }
-              avaliation={item.avaliation}
-              iconFavorite={
-                <BookmarkIcon
-                  size={18}
-                  color={theme[currentTheme].iconColor}
-                  weight="duotone"
-                />
-              }
-              price={item.price}
-            />
+          <View style={styles.cardsListContainer}>
+              <CardsBuildingPrice
+                id={item.id}
+                nameHouse={item.name}
+                address={item.address}
+                image={{ uri: item.gallery[0] }}
+                iconAvaliation={
+                  <StarIcon
+                    size={18}
+                    color={theme[currentTheme].starColor}
+                    weight="fill"
+                  />
+                }
+                avaliation={item.avaliation}
+                iconFavorite={
+                  <BookmarkIcon
+                    size={18}
+                    color={theme[currentTheme].iconColor}
+                    weight="duotone"
+                  />
+                }
+                price={item.price}
+              />
+            </View>
           )}
           contentContainerStyle={{ paddingBottom: 40 }}
         />
@@ -160,5 +163,9 @@ export const createStyles = (currentTheme: 'dark' | 'light') =>
     scrollContent: {
       width: '100%',
       gap: 20,
+    },
+
+    cardsListContainer: {
+      marginBottom: 10,
     },
   });

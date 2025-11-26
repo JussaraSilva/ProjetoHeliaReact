@@ -1,0 +1,149 @@
+{
+  "reviews": [
+    {
+      "id": "005",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,7",
+      "nameUser": "Ricardo Almeida",
+      "dateComentary": "3 de Setembro de 2023",
+      "comentaryText": "Localização excelente e o apartamento muito bem equipado. Superou as expectativas!"
+    },
+    {
+      "id": "008",
+      "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,9",
+      "nameUser": "Juliana Costa",
+      "dateComentary": "18 de Setembro de 2023",
+      "comentaryText": "Decoração linda e muito aconchegante. Perfeito para um fim de semana romântico."
+    },
+    {
+      "id": "012",
+      "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,3",
+      "nameUser": "Pedro Henrique",
+      "dateComentary": "22 de Outubro de 2023",
+      "comentaryText": "Boa estrutura, mas poderia ter mais utensílios na cozinha. No geral, positiva."
+    },
+    {
+      "id": "003",
+      "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "5,0",
+      "nameUser": "Camila Santos",
+      "dateComentary": "7 de Novembro de 2023",
+      "comentaryText": "Experiência maravilhosa! Tudo perfeito, desde o check-in até os detalhes do imóvel."
+    },
+    {
+      "id": "007",
+      "image": "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,6",
+      "nameUser": "Roberto Ferreira",
+      "dateComentary": "15 de Novembro de 2023",
+      "comentaryText": "Muito bom custo-benefício. A piscina era ótima e o espaço amplo."
+    },
+    {
+      "id": "001",
+      "image": "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,8",
+      "nameUser": "Luciana Mendes",
+      "dateComentary": "25 de Novembro de 2023",
+      "comentaryText": "Atendimento excelente e o imóvel muito bem cuidado. Recomendo!"
+    },
+    {
+      "id": "010",
+      "image": "https://images.unsplash.com/photo-1517841905240-472988babdf9?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,4",
+      "nameUser": "Diego Oliveira",
+      "dateComentary": "2 de Dezembro de 2023",
+      "comentaryText": "Boa localização, perto de tudo. O estacionamento facilitou nossa estadia."
+    },
+    {
+      "id": "014",
+      "image": "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,9",
+      "nameUser": "Patrícia Rocha",
+      "dateComentary": "10 de Dezembro de 2023",
+      "comentaryText": "Simplesmente perfeito! Cada detalhe foi pensado para nosso conforto."
+    },
+
+    {
+      "id": "009",
+      "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,7",
+      "nameUser": "Amanda Costa",
+      "dateComentary": "27 de Dezembro de 2023",
+      "comentaryText": "Cama confortável e limpeza impecável. Voltaremos com certeza!"
+    },
+    {
+      "id": "002",
+      "image": "https://images.unsplash.com/photo-1439931441440-81dee663b0da?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,6",
+      "nameUser": "Rafael Souza",
+      "dateComentary": "5 de Janeiro de 2024",
+      "comentaryText": "Boa infraestrutura e preço justo. A varanda com vista era um plus incrível."
+    },
+    {
+      "id": "011",
+      "image": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDN8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,8",
+      "nameUser": "Carla Martins",
+      "dateComentary": "12 de Janeiro de 2024",
+      "comentaryText": "Check-in muito fácil e o anfitrião foi super prestativo. Adorei a experiência!"
+    },
+    {
+      "id": "004",
+      "image": "https://images.unsplash.com/photo-1548142813-c348350df52b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,3",
+      "nameUser": "Bruno Carvalho",
+      "dateComentary": "20 de Janeiro de 2024",
+      "comentaryText": "Localização boa, mas o Wi-Fi poderia ser mais rápido. No geral, positiva."
+    },
+    {
+      "id": "013",
+      "image": "https://images.unsplash.com/photo-1499887142886-791eca5918cd?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDh8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "5,0",
+      "nameUser": "Isabela Lima",
+      "dateComentary": "28 de Janeiro de 2024",
+      "comentaryText": "Superou todas as expectativas! Cada detalhe foi pensado para nosso conforto."
+    },
+    {
+      "id": "007",
+      "image": "https://images.unsplash.com/photo-1517841905240-472988babdf9?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTB8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,9",
+      "nameUser": "Gabriela Santos",
+      "dateComentary": "3 de Fevereiro de 2024",
+      "comentaryText": "Decoração incrível e tudo muito limpo. Perfeito para nossas fotos de viagem!"
+    },
+    {
+      "id": "005",
+      "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,7",
+      "nameUser": "Thiago Alves",
+      "dateComentary": "10 de Fevereiro de 2024",
+      "comentaryText": "Excelente para trabalho. Escritório bem equipado e internet estável."
+    },
+    {
+      "id": "008",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTR8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,5",
+      "nameUser": "Larissa Costa",
+      "dateComentary": "18 de Fevereiro de 2024",
+      "comentaryText": "Muito aconchegante e bem decorado. A cozinha tinha tudo que precisávamos."
+    },
+    {
+      "id": "012",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTZ8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,8",
+      "nameUser": "Vinícius Rodrigues",
+      "dateComentary": "25 de Fevereiro de 2024",
+      "comentaryText": "Vista espetacular e amenities de qualidade. Recomendo para todos!"
+    },
+    {
+      "id": "003",
+      "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTh8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "avaliationNote": "4,6",
+      "nameUser": "Natália Ferreira",
+      "dateComentary": "4 de Março de 2024",
+      "comentaryText": "Boa localização e preço justo. O estacionamento incluso foi ótimo."
+    }
+  ]
+}

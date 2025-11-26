@@ -1,9 +1,12 @@
 export const theme = {
   dark: {
     background: "#181a20",
+    backgroundCalendar:"#f9fffa",
+    backgroundSecondary: "#f2f2f2",
     textPrimary: "#f4f4f4",
     textCardRecomendation: "#f4f4f4",
     textSecondary: "#757575",
+    textCalendar:"#000000",
     colorGray:"#999999",
     accent: "#1ab65c",
     trackOff: "#2d2d2d",
@@ -16,7 +19,7 @@ export const theme = {
     colorAtiva:"#12adf5",
     colorError:"#ff0000",
     colorComplet:"#1ab65c",
-    colorAtivaBack:"#b3daec",
+    colorAtivaBack:"#d3e8f1",
     colorErrorBack:"#fdb6b6",
     colorCompletBack:"#c9fcdb",
 
@@ -24,8 +27,11 @@ export const theme = {
 
   light: {
     background: "#f2f2f2",
+    backgroundCalendar:"#d7f7df",
+    backgroundSecondary: "#ffffff",
     textPrimary: "#121212",
     textSecondary: "#555555",
+    textCalendar:"#000000",
     textCardRecomendation: "#d4d4d4",
     colorGray:"#808080",
     accent: "#1ab65c",

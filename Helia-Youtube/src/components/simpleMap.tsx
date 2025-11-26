@@ -3,14 +3,14 @@ import React, { useContext } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Linking, Alert } from 'react-native';
 import { MapPinIcon } from 'phosphor-react-native';
 import { theme } from '../styles/themes';
-import { ThemeContext } from '../../src/context/themeContext';
+import { ThemeContext } from '../context/themeContext';
 
 interface SimpleMapProps {
   address: string;
-  hotelName: string;
+  
 }
 
-const ExternalMap: React.FC<SimpleMapProps> = ({ address, hotelName }) => {
+const ExternalMap: React.FC<SimpleMapProps> = ({ address }) => {
   const openMaps = async () => {
     try {
       const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;

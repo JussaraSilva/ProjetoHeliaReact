@@ -7,12 +7,13 @@ import { theme } from "../styles/themes";
 
 type Props = {
   image?: ImageSourcePropType;
+  id: string;
   nameHouse?: string;
   adress?: string;
   statusBooking?: "Ativa" | "Cancelada" | "Completa";
 };
 
-export default function CardsBuilding({ nameHouse, adress, statusBooking, image}: Props) {
+export default function CardsBuilding({ nameHouse, adress, statusBooking, image, id}: Props) {
     
     const { currentTheme } = useContext(ThemeContext) as { currentTheme: keyof typeof theme };
     const styles = createStyles(currentTheme);
@@ -40,14 +41,18 @@ export default function CardsBuilding({ nameHouse, adress, statusBooking, image}
                   <Image style={styles.imagemEstabelecimento} 
                   source={image}
                 />
-                <View style={styles.contentInfoEstabelecimento}>
-                  <Text style={styles.nomeEstabelecimento}>{nameHouse}</Text>
-                  <Text style={styles.endereco}>{adress}</Text>
-                  <Text style={[styles.statusAgendamento, statusBooking ? statusStyles[statusBooking] : undefined]}>
-                      {statusBooking}
-                    </Text>
-                  
-                </View>                
+                  <View style={styles.contentInfoEstabelecimento}>
+                      <View style={styles.nameAdressCard}>
+                        <Text style={styles.nomeEstabelecimento}>{nameHouse}</Text>
+                        <Text style={styles.endereco}>{adress}</Text>
+                      </View>
+
+                      <View style={styles.statusContainer}>
+                        <Text style={[styles.statusAgendamento, statusBooking ? statusStyles[statusBooking] : undefined]}>
+                        {statusBooking}
+                        </Text>
+                      </View>                  
+                  </View>                
                 </View>
               </TouchableOpacity>
             
@@ -76,6 +81,7 @@ export const createStyles = (currentTheme: "dark" | "light") =>
       backgroundColor: theme[currentTheme].card,
       borderRadius: 10,
       gap:10,
+      flex:1,
     },
 
     imagemEstabelecimento: {
@@ -85,10 +91,17 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     },
 
     contentInfoEstabelecimento:{
-      flexDirection: "column",
-      marginLeft: 10,
+      flexDirection: "row",
+      justifyContent: "space-between",
       gap:10,
-      
+      flex:1,
+    },
+
+    nameAdressCard:{
+      flexDirection: "column",
+      gap:5,
+      wordWrap: "wrap",
+      flex:1,
     },
 
     nomeEstabelecimento: {
@@ -103,11 +116,18 @@ export const createStyles = (currentTheme: "dark" | "light") =>
       color: theme[currentTheme].textSecondary,
     },
 
+    statusContainer: {
+      alignItems: "flex-start",
+      marginTop: 10,
+    },
+
     statusAgendamento: {
       fontSize: 16,
       fontWeight: "bold",    
       padding: 10,
-      borderRadius: 10,
+      borderRadius: 20,
+      textAlign: "center",
+      width: 100,
       alignSelf: "flex-start",
     },
 

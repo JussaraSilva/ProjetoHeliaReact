@@ -1,53 +1,71 @@
-import { ChatsTeardropIcon, MagnifyingGlassIcon } from 'phosphor-react-native';
-import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import {  ChatsTeardropIcon, MagnifyingGlassIcon} from 'phosphor-react-native';
+import { FlatList,  StyleSheet, Text, View } from 'react-native';
 import { theme } from '../../src/styles/themes';
-import { useContext, useState } from 'react';
 import { ThemeContext } from '../../src/context/themeContext';
 import ButtonFilter from '../../src/components/buttonFilter';
+import { useEffect, useState, useContext } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import CardsBuilding from '../../src/components/cardsBuilding';
 
 export default function Booking() {
-  const { currentTheme } = useContext(ThemeContext) as {
-    currentTheme: keyof typeof theme;
-  };
+  const { currentTheme } = useContext(ThemeContext);
   const styles = createStyles(currentTheme);
 
-  const [activeFilter, setActiveFilter] = useState('OnGoing');
-  const filters = ['OnGoing', 'Completed', 'Canceled'];
+  const [activeFilter, setActiveFilter] = useState("OnGoing");
+  const filters = ["OnGoing", "Completed", "Canceled"];
+  
+  type Booking = {
+    id: string;
+    name: string;
+    address: string;
+    image: string;
+  };
 
-  function handleStatus() {
-    if (activeFilter === 'OnGoing') {
-      return 'Ativa';
-    } else if (activeFilter === 'Completed') {
-      return 'Completa';
-    } else {
-      return 'Cancelada';
-    }
+  const [bookingData, setBookingData] = useState<Booking[]>([]);
 
+  useEffect(() => {
+  async function loadBookings() {
+    const stored = await AsyncStorage.getItem("bookings");
+    setBookingData(stored ? (JSON.parse(stored) as Booking[]) : []);
   }
 
-  
+  loadBookings();
+}, []);
+
+
 
   
+
+
+  function handleStatus() {
+    switch (activeFilter) {
+      case "OnGoing":
+        return "Ativa";
+      case "Completed":
+        return "Completa";
+      default:
+        return "Cancelada";
+    }
+  }
 
   return (
     <View style={styles.container}>
-      <StatusBar />
+      {/* HEADER */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <ChatsTeardropIcon size={30} color='#1ab65c' weight='duotone' />
+          <ChatsTeardropIcon size={30} color="#1ab65c" weight="duotone" />
           <Text style={styles.headerLeftText}>My Booking</Text>
         </View>
-        <View style={styles.headerRight}>
-          <MagnifyingGlassIcon
-            size={30}
-            color={theme[currentTheme].iconColor}
-            weight='duotone'
-          />
-        </View>
+
+        <MagnifyingGlassIcon
+          size={30}
+          color={theme[currentTheme].iconColor}
+          weight="duotone"
+        />
       </View>
 
-      {/* Filtros de status do aluguel */}
+      {/* FILTERS */}
       <View style={styles.filterContainer}>
         {filters.map((label) => (
           <ButtonFilter
@@ -59,63 +77,38 @@ export default function Booking() {
         ))}
       </View>
 
-      <ScrollView style={styles.containerCards}
-      showsVerticalScrollIndicator={false}
-      >
-        <CardsBuilding 
-            nameHouse='Palms Casino Resort' 
-            adress='London, United Kingdom' 
+      {/* LIST */}
+      <FlatList
+        data={bookingData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <CardsBuilding
+            id={item.id}
+            nameHouse={item.name}
+            adress={item.address}
+            image={{ uri: item.image }}
             statusBooking={handleStatus()}
-            image={{uri: 'https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000',}}
-         
-        />
-        <CardsBuilding 
-            nameHouse='Bulgari Casino Resort' 
-            adress='Paris, France' 
-            statusBooking={handleStatus()}
-            image={{uri: 'https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000',}}
-         
-        />
-        <CardsBuilding 
-            nameHouse='Bulgari Casino Resort' 
-            adress='Paris, France' 
-            statusBooking={handleStatus()}
-            image={{uri: 'https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000',}}
-         
-        />
-        <CardsBuilding 
-            nameHouse='Bulgari Casino Resort' 
-            adress='Paris, France' 
-            statusBooking={handleStatus()}
-            image={{uri: 'https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000',}}
-         
-        />
-        <CardsBuilding 
-            nameHouse='Bulgari Casino Resort' 
-            adress='Paris, France' 
-            statusBooking={handleStatus()}
-            image={{uri: 'https://robbreport.com/wp-content/uploads/2018/11/copy-of-palms_26201_cinema_livingroom_v5.jpg?w=1000',}}
-         
-        />
-          
-          
-      </ScrollView>
+          />
+        )}
+      />
     </View>
   );
 }
+
 
 export const createStyles = (currentTheme: 'dark' | 'light') =>
   StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme[currentTheme].background,
-      paddingHorizontal: 24,
+      
     },
 
     header: {
-      marginTop: 40,
+      marginTop: 60,
       flexDirection: 'row',
       justifyContent: 'space-between',
+      paddingHorizontal: 20,
     },
 
     headerLeft: {
@@ -157,11 +150,12 @@ export const createStyles = (currentTheme: 'dark' | 'light') =>
     },
 
     containerCards: {
-      marginTop: 10,
+      marginTop: 8,
       gap: 10,
+      paddingHorizontal: 10,
     },
 
     statusBooking: {
-
+      
     }
   });

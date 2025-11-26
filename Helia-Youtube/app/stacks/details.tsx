@@ -1,16 +1,20 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import * as Icons from "phosphor-react-native";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { ThemeContext } from "../../src/context/themeContext";
 import { theme } from "../../src/styles/themes";
 import housesData from "../../src/data/houses.json";
-import IconsDetailsComponents from "../../src/components/iconsDetailsComponent";
-import IconsServicesComponents from "../../src/components/iconsServicesComponent";
-import ExternalMap from "../../src/components/simpleMapProps";
+import  reviewsData from "../../src/data/reviews.json";
+import IconsDetailsComponents from "../../src/components/detailsIcons";
+import IconsServicesComponents from "../../src/components/servicesIcons";
+import ExternalMap from "../../src/components/simpleMap";
+import ReviewCard from "../../src/components/reviewCard";
 
-
+import ModalCalendar from "../../src/components/modals/calendar";
 
 
 
@@ -26,31 +30,66 @@ const responsiveSize: IResponsiveSize = (size: number): number => {
 };
 
 export default function Details() {
+  const [openCalendar, setOpenCalendar] = useState(false);
+
+  const [dates, setDates] = useState<{ start: Date; end: Date } | null>(null);
+function handleDatesSelected({ start, end }: { start: string; end: string }) {
+  setDates({ start: new Date(start), end: new Date(end) });
+  setOpenCalendar(false);       // fecha calendario
+}
+  
+
+// async function handleBooking() {
+//   if (!house) {
+//     console.warn("house não carregou ainda — evitando crash");
+//     return;
+//   }
+
+//   console.log("🚀 handleBooking foi chamado!");
+//   console.log("HOUSE:", house);
+
+//   const novo = {
+//     id: house.id,
+//     name: house.name,
+//     address: house.address,
+//     image: house.gallery?.[0] ?? "",
+//   };
+
+//   // 1️⃣ Carrega os já salvos
+//   const stored = await AsyncStorage.getItem("bookings");
+//   const prev = stored ? JSON.parse(stored) : [];
+
+//   // 2️⃣ Adiciona o novo
+//   const updated = [...prev, novo];
+
+//   // 3️⃣ Salva de volta
+//   await AsyncStorage.setItem("bookings", JSON.stringify(updated));
+
+//   console.log("📦 STORAGE AGORA:", updated);
+
+//   // 4️⃣ Navega
+//   router.push("../../tabs/booking");
+// }
+
 
   
+  function arrowBackPage() {
+      router.navigate('/tabs/home');
+  }
 
     const { currentTheme } = useContext(ThemeContext);
       const styles = createStyles(currentTheme);
 
       const params = useLocalSearchParams<{
           id: string;
-          nameHouse: string;
-          adress: string;
-          price: string;
-          avaliation: string;
-          image: string;
+          
       }>();
 
-      
-
-      const router = useRouter();
-  
-      function arrowBackPage() {
-          router.navigate('/tabs/home');
-      }
-
        const house = housesData.houses.find((h) => h.id === params.id);
-
+      
+       // Filtra os reviews pelo mesmo ID
+      const houseReviews = reviewsData.reviews.filter((review) => review.id === params.id);
+  
         if (!house) {
           return <Text>Erro: imóvel não encontrado.</Text>;
         }
@@ -60,8 +99,8 @@ export default function Details() {
       
       <View style = {styles.container}>
           <View style = {styles.header}>
-                <Image style = {styles.headerImage}
-                  source={{ uri: params.image }}/>
+              <Image style = {styles.headerImage}
+                source={{ uri: house.gallery[0] }}/>
 
                 <View style = {styles.headerInfoButtons}>
                     <TouchableOpacity onPress={arrowBackPage}>
@@ -80,12 +119,12 @@ export default function Details() {
 
           <ScrollView>
             <Text style = {styles.imovelNameText}>
-              {params.nameHouse}
+              {house.name}
             </Text>
             <View style = {styles.infoLocalizacao}>
                 <Icons.MapPinIcon size={32} color='#1ab65c' weight='fill'/>
                 <Text style = {styles.infoLocalizacaoEnderecoText}>
-                  {params.adress}
+                  {house.address}
                 </Text>
             </View>
 
@@ -243,27 +282,71 @@ export default function Details() {
                   <Text style = {styles.locationContainerTitle}>Location</Text>
                   <View style = {styles.locationContainerMap}>
                     <ExternalMap 
-                        address={params.adress} 
-                        hotelName={params.nameHouse} 
+                        address={house.address} 
                     />
                   </View>
             </View>
 
-            <View style = {styles.footer}>
-                  <View style = {styles.footerContainerText}>
-                    <Text style = {styles.footerContainerTextMoney}>{params.price}</Text>
-                    <Text style = {styles.footerContainerTextMonth}>/mês</Text>
+            <View style = {styles.reviewsContainer}>
+              <View style = {styles.headerReviewsContainer}>
+                <View style = {styles.reviewsContentAvaliation}>
+                  <Text style = {styles.reviewsContainerTitle}>Review</Text>
+                  <View style = {styles.avaliationContainer}>
+                      <Icons.StarIcon
+                          size={16}
+                          color={theme[currentTheme].starColor}
+                          weight='fill'
+                      />
+                      <Text style={styles.avaliationText}>
+                          {house.avaliation}
+                      </Text>
+                      
                   </View>
 
-                  <View style = {styles.footerContainerButton}>
-                    <TouchableOpacity 
-                            style={styles.button}>
-                      <Text style={styles.buttonText}>Alugar</Text>
-                    </TouchableOpacity>
-                  </View>
+                </View>
+                <TouchableOpacity style = {styles.moreReviewsButton}>
+                  <Text style = {styles.moreTextReview}>Ver Tudo</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style = {styles.reviewsContent}>
+                  <ReviewCard 
+                    reviews={houseReviews.map(review => ({
+                      ...review,
+                      image: review.image ? { uri: review.image } : undefined
+                    }))} 
+                  />
+              </View>
+            </View>
+
+            <View style = {styles.footer}>
+                  <View style = {styles.footerContainerText}>
+                      <Text style = {styles.footerContainerTextMoney}>{house.price}</Text>
+                      <Text style = {styles.footerContainerTextMonth}>/month</Text>
+                    </View>
+
+                    <View style = {styles.footerContainerButton}>
+                      <TouchableOpacity 
+                            style={styles.button}
+                            onPress={() => setOpenCalendar(true)}
+                            // onPress={house ? handleBooking : undefined}
+                            // disabled={!house}
+                        >
+                        <Text style={styles.buttonText}>Agendar</Text>
+                        
+                      </TouchableOpacity>
+                    </View>
+                    
+                  
             </View>
 
           </ScrollView>
+
+          <ModalCalendar 
+            visible={openCalendar} 
+            onClose={() => setOpenCalendar(false)}
+            onNext={handleDatesSelected}
+          />
             
       </View>
         
@@ -480,6 +563,67 @@ export const createStyles = (currentTheme: "dark" | "light") =>
       fontWeight:"bold",
     },
 
+    
+
+    reviewsContainer: {
+      flexDirection:"column",
+      paddingHorizontal:20,
+      gap:10,
+      marginTop:15,
+    },
+
+    headerReviewsContainer: {
+      flexDirection:"row",
+      alignItems:"center",
+      justifyContent:"space-between",
+      flex: 1,
+      gap:15,
+    },
+
+    reviewsContentAvaliation: {
+      flexDirection:"row",
+      alignItems:"center",
+      gap:10,
+    },
+
+    reviewsContainerTitle: {
+      color:theme[currentTheme].textPrimary,
+      fontSize:18,
+      fontWeight:"bold",
+      
+    },
+
+    avaliationContainer: {
+      flexDirection:"row",
+      
+      justifyContent: 'center',
+      alignItems:"center",
+      borderRadius:20,
+    },
+
+    avaliationText: {
+      color: theme[currentTheme].accent,
+      fontSize: 14,
+      fontWeight: 'bold',
+      marginLeft: 5,
+    },
+
+    moreReviewsButton: {
+      padding: 10,
+    },
+
+    moreTextReview: {
+      color: theme[currentTheme].accent,
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+
+    reviewsContent: {
+      flexDirection:"column",
+      gap:15,
+      marginTop:15,
+    },
+
     footer: {
       flexDirection:"row",
       justifyContent:"space-between",     
@@ -498,7 +642,9 @@ export const createStyles = (currentTheme: "dark" | "light") =>
     footerContainerText: {
       flexDirection: "row",
       alignItems:"center",
-      marginLeft:5,
+      gap:2,
+      
+      
       
     },
 
@@ -511,8 +657,8 @@ export const createStyles = (currentTheme: "dark" | "light") =>
 
     footerContainerTextMonth: {
       color:theme[currentTheme].textPrimary,
-      fontSize:12,
-      fontWeight:"bold",
+      fontSize:14,
+      
     },
 
     footerContainerButton: {

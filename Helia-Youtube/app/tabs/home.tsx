@@ -1,38 +1,44 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  FlatList,
-} from 'react-native';
+// React
+import { useContext, useMemo, useState } from 'react';
 
+// React Native
+import { Text, View, StyleSheet, FlatList } from 'react-native';
+
+// Expo
 import { StatusBar } from 'expo-status-bar';
 
+// Ícones externos
 import {
   BellRingingIcon,
   BookmarkIcon,
   ChatsTeardropIcon,
-  MagnifyingGlassIcon,
-  SlidersHorizontalIcon,
   StarIcon,
 } from 'phosphor-react-native';
 
-import { useContext, useMemo, useState } from 'react';
+// Contexto
 import { ThemeContext } from '../../src/context/themeContext';
 
+// Estilos globais
 import { theme } from '../../src/styles/themes';
+
+// Componentes da aplicação
 import CardsBuildingPrice from '../../src/components/cardsBuildingPrice';
 import ButtonFilter from '../../src/components/buttonFilter';
-import CardsRecomendacao from '../../src/components/cardRecomendacao';
+import CardsRecomendacao from '../../src/components/recomendationCard';
+
+// Dados
 import housesData from '../../src/data/houses.json';
 
 export default function Home() {
   const { currentTheme } = useContext(ThemeContext) as {
     currentTheme: keyof typeof theme;
   };
+
   const styles = useMemo(() => createStyles(currentTheme), [currentTheme]);
+
   const [activeFilter, setActiveFilter] = useState('Recommended');
   const filters = ['Recommended', 'Popular', 'Trending', 'Recent', 'Favorites'];
+
 
   return (
     <View style={styles.container}>
@@ -58,15 +64,7 @@ export default function Home() {
 
       <Text style={styles.userName}>Olá, Rodrigo!</Text>
 
-      <View style={styles.inputContainer}>
-        <MagnifyingGlassIcon size={30} color='#757575' weight='duotone' />
-        <TextInput
-          style={styles.input}
-          placeholder='Busque uma casa aqui'
-          placeholderTextColor={'#757575'}
-        />
-        <SlidersHorizontalIcon size={30} color='#1ab65c' weight='duotone' />
-      </View>
+      
 
       <FlatList
         data={housesData.houses.slice(0, 6)} // sua lista vertical principal
@@ -114,28 +112,30 @@ export default function Home() {
           </>
         }
         renderItem={({ item }) => (
-          <CardsBuildingPrice
-            id={item.id}
-            nameHouse={item.name}
-            address={item.address}
-            image={{ uri: item.gallery[0] }}
-            iconAvaliation={
-              <StarIcon
-                size={18}
-                color={theme[currentTheme].starColor}
-                weight='fill'
-              />
-            }
-            avaliation={item.avaliation}
-            iconFavorite={
-              <BookmarkIcon
-                size={18}
-                color={theme[currentTheme].iconColor}
-                weight='duotone'
-              />
-            }
-            price={item.price}
-          />
+          <View style={styles.containerRecomendationsList}>
+            <CardsBuildingPrice
+              id={item.id}
+              nameHouse={item.name}
+              address={item.address}
+              image={{ uri: item.gallery[0] }}
+              iconAvaliation={
+                <StarIcon
+                  size={18}
+                  color={theme[currentTheme].starColor}
+                  weight='fill'
+                />
+              }
+              avaliation={item.avaliation}
+              iconFavorite={
+                <BookmarkIcon
+                  size={18}
+                  color={theme[currentTheme].iconColor}
+                  weight='duotone'
+                />
+              }
+              price={item.price}
+            />
+          </View>
         )}
       />
     </View>
@@ -181,49 +181,8 @@ export const createStyles = (currentTheme: 'dark' | 'light') =>
       fontWeight: '800',
     },
 
-    inputContainer: {
-      width: '100%',
-      height: 56,
-      backgroundColor: theme[currentTheme].input,
-      borderRadius: 12,
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: 20,
-      gap: 10,
-      marginBottom: 20,
-    },
 
-    input: {
-      flex: 1,
-      color: theme[currentTheme].textPrimary,
-    },
-
-    content: {
-      marginRight: 28,
-      width: '100%',
-      gap: 20,
-    },
-
-    scrollView: {
-      flex: 1,
-    },
-
-    scrollContent: {
-      paddingBottom: 10,
-    },
-
-    scrollfiltersRecomendations: {
-      marginBottom: 12,
-    },
-
-    scrollCardsRecomendations: {
-      gap: 20,
-    },
-
-    CardsRecomendations: {
-      flexDirection: 'row',
-      alignItems: 'center',
-
-      justifyContent: 'center',
+    containerRecomendationsList: {
+      marginBottom: 10,
     },
   });
