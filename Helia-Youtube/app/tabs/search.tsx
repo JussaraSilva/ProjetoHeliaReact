@@ -78,7 +78,7 @@ export default function Search() {
         {/* FLATLIST VERTICAL (CARDS) */}
         <FlatList
           
-          data={housesData.houses.slice(0, 8)}
+          data={housesData.houses.slice(0, 12)}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
           <View style={styles.cardsListContainer}>
@@ -95,6 +95,7 @@ export default function Search() {
                   />
                 }
                 avaliation={item.avaliation}
+                avaliationNote={item.avaliationNote}
                 iconFavorite={
                   <BookmarkIcon
                     size={18}

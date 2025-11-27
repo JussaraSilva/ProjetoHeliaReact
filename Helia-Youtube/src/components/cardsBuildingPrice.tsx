@@ -19,6 +19,7 @@ type CardsBuildingPriceProps = {
   image: { uri: string };
   iconAvaliation: React.ReactNode;
   avaliation: string;
+  avaliationNote: string;
   iconFavorite: React.ReactNode;
   price: string;
 };

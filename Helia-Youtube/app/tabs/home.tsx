@@ -67,7 +67,7 @@ export default function Home() {
       
 
       <FlatList
-        data={housesData.houses.slice(0, 6)} // sua lista vertical principal
+        data={housesData.houses.slice(0, 8)} // sua lista vertical principal
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 30 }}
@@ -126,6 +126,7 @@ export default function Home() {
                 />
               }
               avaliation={item.avaliation}
+              avaliationNote={item.avaliationNote}
               iconFavorite={
                 <BookmarkIcon
                   size={18}

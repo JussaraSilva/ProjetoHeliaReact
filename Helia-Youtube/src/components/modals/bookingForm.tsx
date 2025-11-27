@@ -141,7 +141,7 @@ const createStyles = (currentTheme: "dark" | "light") =>
     },
 
     input: {
-      borderColor: theme[currentTheme].textSecondary,
+      borderColor: theme[currentTheme].borderInput,
       borderWidth: 1,
       borderRadius: 6,
       padding: 10,
