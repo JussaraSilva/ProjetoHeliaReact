@@ -1,8 +1,10 @@
 
-import { Image, ScrollView,  StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native';
+import { Image, ScrollView,  StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
 import { theme } from '../../src/styles/themes';
 import { ThemeContext } from '../../src/context/themeContext';
 import {  useContext, useState } from "react";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -35,23 +37,119 @@ export default function ConfirmationReserv() {
     return diffDays;
   }
 
-  function calculateTotal() {
+  function parseBrazilianCurrency(currencyString: string): number {
+  return parseFloat(
+    currencyString
+      .replace('R$', '')
+      .trim()
+      .replace(/\./g, '')  // Remove todos os pontos (milhares)
+      .replace(',', '.')   // Converte vírgula para ponto decimal
+  );
+}
+
+function calculateTotal() {
   const nights = calculateNights();
   const priceString = params.housePrice as string;
   
-  console.log('🔍 DEBUG calculateTotal:');
-  console.log('nights:', nights);
-  console.log('priceString:', priceString);
-  console.log('Number(priceString):', Number(priceString));
-  
-  const pricePerNight = Number(priceString);
+  const pricePerNight = parseBrazilianCurrency(priceString);
   const total = nights * pricePerNight;
   
-  console.log('total:', total);
   return total;
-  }
+}
   
   const [selectedPayment, setSelectedPayment] = useState<string>('');
+
+
+  async function handleBooking() {
+  try {
+    // Verificação mais robusta
+    const requiredParams = {
+      houseId: params.houseId,
+      houseName: params.houseName,
+      houseAddress: params.houseAddress,
+      houseImage: params.houseImage,
+      housePrice: params.housePrice,
+      houseAvaliation: params.houseAvaliation,
+      startDate: params.startDate,
+      endDate: params.endDate,
+      tenantName: params.tenantName,
+      tenantPhone: params.tenantPhone,
+      guests: params.guests,
+      notes: params.notes,
+      total: params.total
+    };
+
+    // Verifica se algum param está faltando
+    const missingParams = Object.entries(requiredParams)
+      .filter(([key, value]) => !value)
+      .map(([key]) => key);
+
+    if (missingParams.length > 0) {
+      console.warn("Params faltando:", missingParams);
+      return;
+    }
+
+    console.log("🚀 handleBooking foi chamado!");
+
+    // ✅ Função auxiliar para converter para número
+    const safeNumberConvert = (value: string | string[]): number => {
+      if (typeof value === 'string') {
+        return parseFloat(value) || 0;
+      }
+      if (Array.isArray(value)) {
+        return parseFloat(value[0]) || 0;
+      }
+      return 0;
+    };
+
+    // ✅ Função auxiliar para garantir string
+    const safeString = (value: any): string => {
+      if (Array.isArray(value)) {
+        return value[0] || '';
+      }
+      return String(value || '');
+    };
+
+    const novo = {
+      // Dados do imóvel
+      id: safeString(params.houseId),
+      name: safeString(params.houseName),
+      address: safeString(params.houseAddress),
+      image: Array.isArray(params.houseImage) ? params.houseImage[0] : safeString(params.houseImage),
+      
+      // Dados de preço
+      price: safeString(params.housePrice),
+      total: safeNumberConvert(params.total),
+      avaliation: safeString(params.houseAvaliation),
+      
+      // Dados da reserva
+      startDate: safeString(params.startDate),
+      endDate: safeString(params.endDate),
+      tenantName: safeString(params.tenantName),
+      tenantPhone: safeString(params.tenantPhone),
+      guests: safeString(params.guests),
+      notes: safeString(params.notes),
+      paymentMethod: selectedPayment,
+      status: "Confirmado"
+    };
+
+    console.log("📝 Novo booking:", novo);
+
+    // Salvar no AsyncStorage
+    const stored = await AsyncStorage.getItem("bookings");
+    const prev = stored ? JSON.parse(stored) : [];
+    const updated = [...prev, novo];
+    await AsyncStorage.setItem("bookings", JSON.stringify(updated));
+
+    console.log("✅ Booking salvo com SUCESSO!");
+
+    // Navegar
+    router.push("../../tabs/booking");
+    
+  } catch (error) {
+    console.error("❌ Erro no handleBooking:", error);
+  }
+}
 
 
 
@@ -133,7 +231,7 @@ export default function ConfirmationReserv() {
             </View>            
             <View style={styles.containerTotalPrice}>
               <Text style={styles.textTotalPrice}>Total:</Text>
-              <Text style={styles.textTotal}>{calculateTotal()}</Text>
+              <Text style={styles.textTotal}>R$ {calculateTotal()},00</Text>
             </View>
           </View>
 
@@ -195,9 +293,18 @@ export default function ConfirmationReserv() {
         </View>
 
         <View style={styles.containerButton}>
-          <TouchableOpacity style={styles.buttonConfirmReserv}>
-            <Text style={styles.textButton}>Confirmar Agendamento</Text>
-          </TouchableOpacity>
+          <TouchableOpacity 
+              style={[
+                styles.buttonConfirmReserv,
+                !params && styles.buttonDisabled // Estilo para quando estiver desabilitado
+              ]}
+              onPress={handleBooking}
+              disabled={!params}
+            >
+              <Text style={styles.textButton}>
+                {params ? "Confirmar Agendamento" : "Carregando..."}
+              </Text>
+            </TouchableOpacity>
           
         </View>
       </ScrollView>
@@ -528,6 +635,13 @@ export const createStyles = (currentTheme: 'dark' | 'light') =>
       fontSize: 16,
       fontWeight: 800,
       
+    },
+
+    buttonDisabled: {
+      backgroundColor: theme[currentTheme].colorErrorBack,
+      padding: 10,
+      borderRadius: 8,
+      alignItems: 'center',
     },
 
 

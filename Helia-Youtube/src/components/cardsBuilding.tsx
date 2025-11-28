@@ -10,7 +10,8 @@ type Props = {
   id: string;
   nameHouse?: string;
   adress?: string;
-  statusBooking?: "Ativa" | "Cancelada" | "Completa";
+  statusBooking?: string;
+  price ?: string
 };
 
 export default function CardsBuilding({ nameHouse, adress, statusBooking, image, id}: Props) {

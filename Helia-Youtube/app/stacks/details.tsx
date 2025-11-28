@@ -114,37 +114,7 @@ export default function Details() {
     });
   }
 
-  // async function handleBooking() {
-  //   if (!house) {
-  //     console.warn("house não carregou ainda — evitando crash");
-  //     return;
-  //   }
-
-  //   console.log("🚀 handleBooking foi chamado!");
-  //   console.log("HOUSE:", house);
-
-  //   const novo = {
-  //     id: house.id,
-  //     name: house.name,
-  //     address: house.address,
-  //     image: house.gallery?.[0] ?? "",
-  //   };
-
-  //   // 1️⃣ Carrega os já salvos
-  //   const stored = await AsyncStorage.getItem("bookings");
-  //   const prev = stored ? JSON.parse(stored) : [];
-
-  //   // 2️⃣ Adiciona o novo
-  //   const updated = [...prev, novo];
-
-  //   // 3️⃣ Salva de volta
-  //   await AsyncStorage.setItem("bookings", JSON.stringify(updated));
-
-  //   console.log("📦 STORAGE AGORA:", updated);
-
-  //   // 4️⃣ Navega
-  //   router.push("../../tabs/booking");
-  // }
+  
 
   function arrowBackPage() {
     router.navigate('/tabs/home');
@@ -413,8 +383,7 @@ export default function Details() {
             <TouchableOpacity
               style={styles.button}
               onPress={() => setOpenCalendar(true)}
-              // onPress={house ? handleBooking : undefined}
-              // disabled={!house}
+              
             >
               <Text style={styles.buttonText}>Agendar</Text>
             </TouchableOpacity>

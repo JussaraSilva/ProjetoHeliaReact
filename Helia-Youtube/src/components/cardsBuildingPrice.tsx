@@ -17,11 +17,12 @@ type CardsBuildingPriceProps = {
   id: string;
   address: string;
   image: { uri: string };
-  iconAvaliation: React.ReactNode;
-  avaliation: string;
-  avaliationNote: string;
-  iconFavorite: React.ReactNode;
+  iconAvaliation?: React.ReactNode;
+  avaliation?: string;
+  avaliationNote?: string;
+  iconFavorite?: React.ReactNode;
   price: string;
+  statusBooking: string;
 };
 
 export default function CardsBuildingPrice({
@@ -31,8 +32,10 @@ export default function CardsBuildingPrice({
   image,
   price,
   iconAvaliation,
+  avaliationNote,
   avaliation,
   iconFavorite,
+  statusBooking,
 }: CardsBuildingPriceProps) {
   const { currentTheme } = useContext(ThemeContext) as {
     currentTheme: keyof typeof theme;

@@ -78,7 +78,7 @@ export default function Search() {
         {/* FLATLIST VERTICAL (CARDS) */}
         <FlatList
           
-          data={housesData.houses.slice(0, 12)}
+          data={housesData.houses.slice(9, 45)}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
           <View style={styles.cardsListContainer}>
