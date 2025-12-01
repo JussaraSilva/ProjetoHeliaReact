@@ -1,207 +1,287 @@
-import { ChatsTeardropIcon, MagnifyingGlassIcon } from 'phosphor-react-native';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { theme } from '../../src/styles/themes';
+import React, { useContext, useState, useEffect } from 'react';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  StatusBar,
+  ScrollView,
+} from 'react-native';
 import { ThemeContext } from '../../src/context/themeContext';
 import ButtonFilter from '../../src/components/buttonFilter';
-import React, { useEffect, useState, useContext } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { theme } from '../../src/styles/themes';
+import {
+  ArrowRightIcon,
+  CalendarDotsIcon,
+  ChatsTeardropIcon,
+  MagnifyingGlassIcon,
+  UsersIcon,
+} from 'phosphor-react-native';
 
-import CardsBuilding from '../../src/components/cardsBuilding';
-import { router } from 'expo-router';
-import CardsBuildingPrice from '../../src/components/cardsBuildingPrice';
-import CardsBookingDetails from '../../src/components/cardsBookingDetails';
 
-// Defina o tipo Booking CORRETAMENTE
-type BookingData = {
-  id: string;
+
+interface BookingData {
   name: string;
   address: string;
   image: string;
-  price: string;
-  total: number;
   startDate: string;
   endDate: string;
-  tenantName: string;
-  tenantPhone: string;
-  guests: string;
+  total: number;
+  guests: number;
   paymentMethod: string;
   status: string;
-  // Props adicionais que você está usando no CardsBuildingPrice
-  notes?: string;
-  avaliation?: string;
-  avaliationNote?: string;
-  iconAvaliation?: React.ReactNode;
-  iconFavorite?: React.ReactNode;
-};
+  tenantName: string;
+  tenantPhone: string;
+  notes: string;
+  avaliationNote: string;
+  noites: number;
+  price: string;
+}
+
 
 export default function Booking() {
+  const [bookings, setBookings] = useState<BookingData[]>([]);
+
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const data = await AsyncStorage.getItem('bookings');
+        if (data) {
+          setBookings(JSON.parse(data));
+        }
+      } catch (error) {
+        console.log('Erro ao carregar reservas:', error);
+      }
+    }
+
+    loadData();
+  }, []);
+
+
+  
+
   const { currentTheme } = useContext(ThemeContext);
   const styles = createStyles(currentTheme);
 
-  const [activeFilter, setActiveFilter] = useState("OnGoing");
-  const filters = ["OnGoing", "Completed", "Canceled"];
-  
-  // CORREÇÃO: useState deve estar DENTRO do componente
-  const [bookingData, setBookingData] = useState<BookingData[]>([]);
+  const [activeFilter, setActiveFilter] = useState('Todos');
+  const filters = ['Todos', 'Ativos', 'Concluídos', 'Cancelados'];
 
-  useEffect(() => {
-    loadBookings();
-  }, []);
+  const [isVisible, setIsVisible] = useState<number | null>(null);
+  const handleDetailsLook = (index: number) => {
+    setIsVisible(prev => (prev === index ? null : index));
 
-  async function loadBookings() {
-    try {
-      const stored = await AsyncStorage.getItem("bookings");
-      
-      if (stored) {
-        const parsedData = JSON.parse(stored) as BookingData[];
-        setBookingData(parsedData);
-      } else {
-        setBookingData([]);
-      }
-    } catch (error) {
-      console.error("Erro ao carregar bookings:", error);
-      setBookingData([]);
-    }
-  }
-
-  // CORREÇÃO: Função handleStatus corrigida
-  const handleStatus = (booking: BookingData): string => {
-    // Se já tem status definido, retorna ele
-    if (booking.status) {
-      return booking.status;
-    }
-    
-    // Lógica para determinar status baseado nas datas
-    const now = new Date();
-    const startDate = new Date(booking.startDate);
-    const endDate = new Date(booking.endDate);
-    
-    if (now < startDate) {
-      return "Agendado";
-    } else if (now >= startDate && now <= endDate) {
-      return "Em Andamento";
-    } else {
-      return "Concluído";
-    }
   };
 
-  // CORREÇÃO: Filtro para mostrar apenas os bookings baseado no activeFilter
-  const filteredBookings = bookingData.filter(booking => {
-    const status = handleStatus(booking);
-    
-    switch (activeFilter) {
-      case "OnGoing":
-        return status === "Em Andamento" || status === "Agendado";
-      case "Completed":
-        return status === "Concluído";
-      case "Canceled":
-        return status === "Cancelado";
-      default:
-        return true;
-    }
-  });
-
-  const handleCancelBooking = async (bookingId: string) => {
-    const updated = bookingData.map(booking =>
-      booking.id === bookingId 
-        ? { ...booking, status: "Cancelado" }
-        : booking
-    );
-    
-    setBookingData(updated);
-    await AsyncStorage.setItem("bookings", JSON.stringify(updated));
-  };
-
-  const handleEditBooking = (booking: BookingData) => {
-    router.push({
-      pathname: '..',
-      params: { booking: JSON.stringify(booking) }
-    });
-  };
 
   return (
     <View style={styles.container}>
-      {/* HEADER */}
+      <StatusBar />
+
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <ChatsTeardropIcon size={30} color="#1ab65c" weight="duotone" />
-          <Text style={styles.headerLeftText}>My Booking</Text>
+          <ChatsTeardropIcon size={30} color='#1ab65c' weight='duotone' />
+          <Text style={styles.headerLeftText}>Helia</Text>
         </View>
+        <View style={styles.headerRight}>
+          <MagnifyingGlassIcon
+            size={32}
+            color={theme[currentTheme].iconColor}
+            weight='duotone'
+          />
+        </View>
+      </View>
 
-        <MagnifyingGlassIcon
-          size={30}
-          color={theme[currentTheme].iconColor}
-          weight="duotone"
+      <View style={styles.containerFiltros}>
+        <FlatList
+          data={filters}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          nestedScrollEnabled
+          renderItem={({ item }) => (
+            <ButtonFilter
+              label={item}
+              isActive={activeFilter === item}
+              onPress={() => setActiveFilter(item)}
+            />
+          )}
+          keyExtractor={(item) => item}
         />
       </View>
 
-      {/* FILTERS */}
-      <View style={styles.filterContainer}>
-        {filters.map((label) => (
-          <ButtonFilter
-            key={label}
-            label={label}
-            isActive={activeFilter === label}
-            onPress={() => setActiveFilter(label)}
-          />
-        ))}
-      </View>
-
-      {/* LIST - usando filteredBookings em vez de bookingData */}
-      <FlatList
-        data={filteredBookings}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.bookingContainer}>
-            
-            {/* 1. Info do Imóvel */}
-            <CardsBuilding
-              id={item.id}
-              nameHouse={item.name}
-              adress={item.address}
-              image={{ uri: item.image }}
-              statusBooking={handleStatus(item)}
-            />
-            
-            {/* 2. Preços */}
-            <CardsBuildingPrice
-              nameHouse={item.name}
-              id={item.id}
-              address={item.address}
-              image={{ uri: item.image }}
-              avaliationNote={item.avaliationNote}
-              iconAvaliation={item.iconAvaliation}
-              iconFavorite={item.iconFavorite}
-              statusBooking={handleStatus(item)}
-              price={item.price}
-            />
-            
-            {/* 3. Detalhes da Reserva + Ações */}
-            <CardsBookingDetails
-              startDate={item.startDate}
-              endDate={item.endDate}
-              tenantName={item.tenantName}
-              tenantPhone={item.tenantPhone}
-              guests={item.guests}
-              notes={item.notes}
-              paymentMethod={item.paymentMethod}
-              status={handleStatus(item)}
-              onCancel={() => handleCancelBooking(item.id)}
-              onEdit={() => handleEditBooking(item)}
-            />
-            
-          </View>
-        )}
-        ListEmptyComponent={
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>
-              Nenhuma reserva {activeFilter === "OnGoing" ? "em andamento" : 
-                            activeFilter === "Completed" ? "concluída" : 
-                            "cancelada"}
+      
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.containerCards}>
+          {bookings.length === 0 ? (
+            <Text style={{ color: theme[currentTheme].textPrimary }}>
+              Nenhuma reserva ainda
             </Text>
-          </View>
-        }
-      />
+          ) : (
+            bookings.map((item, index) => (
+              <View key={index}>
+                {/* --- SEU CARD --- */}
+                <View style={styles.card}>
+                  <View style={styles.cardContent}>
+                    <View style={styles.cardTop}>
+                      <View style={styles.containerImage}>
+                        <Image
+                          style={styles.imagemEstabelecimento}
+                          source={{ uri: item.image }} // <<<<< DINÂMICO
+                        />
+                      </View>
+
+                      <View style={styles.containerText}>
+                        <Text style={styles.tituloEstabelecimento}>
+                          {item.name}
+                        </Text>
+                        <Text style={styles.enderecoEstabelecimento}>
+                          {item.address}
+                        </Text>
+
+                        <View style={styles.containerStatus}>
+                          <Text style={styles.statusEstabelecimento}>
+                            {item.status}
+                          </Text>
+                        </View>
+
+                        <View style={styles.avaliationContainer}>
+                          <Text style={styles.avaliationText}>
+                            {item.avaliationNote ?? 'Sem avaliação'}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+
+                    <View style={styles.divisor}></View>
+
+                    <View style={styles.cardBottom}>
+                      <View style={styles.containerOptionsButtons}>
+                        <TouchableOpacity
+                              style={styles.buttonCancelar}
+                              onPress={async () => 
+                              {
+                              await AsyncStorage.removeItem('bookings');
+                              setBookings([]); // limpa a lista na tela também
+                            }}>
+                            <Text style={styles.textButtonCancelar}>Limpar(DEBUG)</Text>
+                          </TouchableOpacity>
+
+
+                        <TouchableOpacity
+                          style={styles.buttonDetalhes}
+                          onPress={() => handleDetailsLook(index)}
+                        >
+                          <Text style={styles.textButton}>Detalhes</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+
+                {/* --- DETALHES DINÂMICOS --- */}
+                {isVisible === index && (
+                  <View style={styles.containerDetails}>
+                    <Text style={styles.titleContainer}>
+                      Informações do Agendamento
+                    </Text>
+
+                    <View style={styles.detailContainer}>
+                      <View style={styles.guestsRow}>
+                        <UsersIcon
+                          size={24}
+                          color={theme[currentTheme].iconColor}
+                          weight='duotone'
+                        />
+                        <Text style={styles.guestsText}>
+                          {item.guests} Hóspede(s)
+                        </Text>
+                      </View>
+
+                      <View style={styles.nameReservationRow}>
+                        <Text style={styles.nameReservationText}>
+                          Nome da Reserva:
+                        </Text>
+                        <Text style={styles.nameText}>{item.tenantName}</Text>
+                      </View>
+                      <View style={styles.phoneReservationRow}>
+                        <Text style={styles.phoneReservationText}>
+                          Telefone para Contato:
+                        </Text>
+                        <Text style={styles.nameText}>{item.tenantPhone}</Text>
+                      </View>
+
+                      <View style={styles.notesRow}>
+                        <Text style={styles.notesText}>Observações:</Text>
+                        <Text style={styles.notesText}>{item.notes}</Text>
+                      </View>
+
+                      <View style={styles.bookingDatesRow}>
+                        <View style={styles.bookingCheckIn}>
+                          <CalendarDotsIcon
+                            size={24}
+                            color={theme[currentTheme].iconColor}
+                            weight='duotone'
+                          />
+                          <Text style={styles.checkInText}>Check-in:</Text>
+                          <Text style={styles.checkInText}>{(item.startDate)}</Text>
+                        </View>
+                        
+                        <ArrowRightIcon
+                          size={24}
+                          color={theme[currentTheme].iconColor}
+                          weight='duotone'
+                        />
+
+                        <View style={styles.bookingCheckOut}>
+                          <CalendarDotsIcon
+                            size={24}
+                            color={theme[currentTheme].iconColor}
+                            weight='duotone'
+                          />
+                          <Text style={styles.checkOutText}>Check-out:</Text>
+                        <Text style={styles.checkOutText}>{item.endDate}</Text>
+                        </View>
+                      </View>
+
+                      <View style={styles.priceContainer}>
+                        <View style={styles.priceRow}>
+                          <Text style={styles.priceNight}>Valor/noite: </Text>
+                          <Text style={styles.priceNight}>{item.price}</Text>
+                        </View>
+                        <View style={styles.quantidadeNoitesContainer}>
+                          <Text style={styles.quantityNights}>Noites:</Text>
+                          <Text style={styles.quantityNights}>
+                            {item.noites}
+                          </Text>
+                        </View>
+                        
+                        <View style={styles.totalPriceContainer}>
+                          <Text style={styles.totalPriceText}>Total: </Text>
+                          <Text style={styles.totalPrice}>R$ {item.total},00</Text>
+                        </View>
+                        
+                      </View>
+
+                      <View style={styles.paymentMethodRow}>
+                        <Text style={styles.paymentMethodText}>Pagamento:</Text>
+                        <Text style={styles.paymentMethod}>
+                          {item.paymentMethod}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                )}
+              </View>
+            ))
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -211,16 +291,23 @@ export const createStyles = (currentTheme: 'dark' | 'light') =>
     container: {
       flex: 1,
       backgroundColor: theme[currentTheme].background,
-    },
-
-    header: {
-      marginTop: 60,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+      gap: 10,
       paddingHorizontal: 20,
     },
 
+    header: {
+      marginTop: 50,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+
     headerLeft: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+
+    headerRight: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 10,
@@ -232,35 +319,392 @@ export const createStyles = (currentTheme: 'dark' | 'light') =>
       fontWeight: '800',
     },
 
-    filterContainer: {
-      flexDirection: 'row',
-      alignContent: 'center',
-      justifyContent: 'center',
-      gap: 5,
-      height: 70,
-      width: '100%',
-      marginTop: 15,
-      alignItems: 'center',
-      paddingHorizontal: 25,
+    containerFiltros: {
+      marginTop: 20,
     },
 
-    bookingContainer: {
-      marginTop: 8,
+    scrollContent: {
+      
+    },
+
+    containerCards: {
+      marginTop: 20,
+      flex :1,
+      marginBottom: 20,
       gap: 10,
-      paddingHorizontal: 10,
-      marginBottom: 15,
     },
 
-    emptyContainer: {
-      flex: 1,
-      justifyContent: 'center',
+    card: {
+      width: '100%',
+      height: 200,
+      backgroundColor: theme[currentTheme].card,
+      borderRadius: 12,
       alignItems: 'center',
-      paddingTop: 50,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      padding: 10,
     },
 
-    emptyText: {
+    cardContent: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    },
+
+    cardTop: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+
+    containerImage: {
+      width: 100,
+      height: 100,
+      borderRadius: 10,
+    },
+
+    imagemEstabelecimento: {
+      width: '100%',
+      height: '100%',
+      borderRadius: 10,
+    },
+
+    containerText: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: 10,
+    },
+
+    tituloEstabelecimento: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 18,
+      fontWeight: '800',
+    },
+
+    enderecoEstabelecimento: {
       color: theme[currentTheme].textSecondary,
+      fontSize: 14,
+    },
+
+    containerStatus: {
+      width: 100,
+    },
+
+    statusEstabelecimento: {
+      color: theme[currentTheme].textSecondary,
+      fontSize: 14,
+    },
+
+    avaliationContainer: {
+      width: 100,
+    },
+
+    avaliationText: {
+      color: theme[currentTheme].textSecondary,
+      fontSize: 14,
+    },
+
+    divisor: {
+      width: '100%',
+      height: 1,
+      margin: 10,
+      backgroundColor: theme[currentTheme].borderBottomColor,
+    },
+
+    cardBottom: {
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 10,
+    },
+
+    containerOptionsButtons: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 10,
+      width: '100%',
+    },
+
+    buttonDetalhes: {
+      borderWidth: 1,
+      backgroundColor: theme[currentTheme].colorComplet,
+      borderColor: theme[currentTheme].colorComplet,
+      width: 150,
+      height: 56,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    textButton: {
+      color: theme[currentTheme].textPrimary,
       fontSize: 16,
+      fontWeight: '800',
+    },
+
+    buttonCancelar: {
+      borderWidth: 1,
+      backgroundColor: theme[currentTheme].colorError,
+      borderColor: theme[currentTheme].colorError,
+      width: 150,
+      height: 56,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    textButtonCancelar: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '800',
+    },
+
+    containerDetails: {
+      marginTop: 1,
+      flexDirection: 'column',
+      gap: 10,
+      width: '100%',
+      borderWidth: 2,
+      borderColor: theme[currentTheme].borderBottomColor,
+      borderTopWidth: 0,
+      padding: 10,
+      borderRadius: 10,
+      backgroundColor: theme[currentTheme].card,
+      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    },
+
+    titleContainer: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 18,
+      fontWeight: '800',
       textAlign: 'center',
+    },
+
+    detailContainer: {
+      flexDirection: 'column',
+      gap: 10,
+      maxWidth: '100%',
+    },
+
+    guestsRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      borderBottomColor: theme[currentTheme].borderBottomColor,
+      borderBottomWidth: 1,
+      paddingBottom: 10,
+    },
+
+    guestsText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    nameReservationRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+      borderBottomColor: theme[currentTheme].borderBottomColor,
+      borderBottomWidth: 1,
+      paddingBottom: 10,
+    },
+
+    nameReservationText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    nameText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    phoneReservationRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+      borderBottomColor: theme[currentTheme].borderBottomColor,
+      borderBottomWidth: 1,
+      paddingBottom: 10,
+    },
+
+    phoneReservationText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    phoneText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    notesRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+      borderBottomColor: theme[currentTheme].borderBottomColor,
+      borderBottomWidth: 1,
+      paddingBottom: 10,
+    },
+
+    notesText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    bookingDatesRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      borderBottomColor: theme[currentTheme].borderBottomColor,
+      borderBottomWidth: 1,
+      paddingBottom: 10,
+    },
+
+    bookingCheckIn: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    checkInText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 14,
+      fontWeight: '600',
+    },
+
+    bookingCheckOut: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    checkOutText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 14,
+      fontWeight: '600',
+    },
+
+    priceContainer: {
+      flexDirection: 'column',
+      gap: 10,
+      maxWidth: '100%',
+    },
+
+    priceRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      gap: 5,
+    },
+
+    quantidadeNoitesContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      gap: 10,
+      maxWidth: '100%',
+    },
+
+    priceNight: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    quantityNights: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    totalPriceContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+
+    totalPriceText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    totalPrice: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    taxaServiceRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 5,
+      borderBottomColor: theme[currentTheme].borderBottomColor,
+      borderBottomWidth: 1,
+      paddingBottom: 10,
+    },
+
+    taxaServiceText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    taxaServiceValue: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    priceTotalRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+      borderBottomColor: theme[currentTheme].borderBottomColor,
+      borderBottomWidth: 1,
+      paddingBottom: 10,
+    },
+
+    totalText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    totalValue: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    paymentMethodRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+    },
+
+    paymentMethodText: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    paymentMethod: {
+      color: theme[currentTheme].textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
     },
   });

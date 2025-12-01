@@ -22,7 +22,7 @@ type CardsBuildingPriceProps = {
   avaliationNote?: string;
   iconFavorite?: React.ReactNode;
   price: string;
-  statusBooking: string;
+  statusBooking?: string;
 };
 
 export default function CardsBuildingPrice({
